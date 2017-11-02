@@ -15,6 +15,7 @@ import {
   CardSection
 } from './components/common';
 import LoginForm from './components/LoginForm';
+import Menu from './components/Menu';
 
 type PropType = {
   header: string,
@@ -45,10 +46,11 @@ class App extends React.Component<PropType, StateType> {
       case true:
         return (
           <Card>
+            <Menu />
             <CardSection>
               <Button onPress={() => this.firebase.auth().signOut()}>
                 LogOut
-          </Button>
+              </Button>
             </CardSection>
           </Card>
         );
