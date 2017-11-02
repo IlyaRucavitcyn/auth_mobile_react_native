@@ -9,7 +9,12 @@ import {
 } from './common';
 import MenuItem from './MenuItem';
 import FirebaseClient from '../services/firebase-client';
-import { mapNavigation } from '../navigation/menu-navigator';
+import { mapNavigationNaming } from '../navigation/menu-navigator';
+
+export const menuItemNames = {
+    ACCOUNT_DETAILS: 'Account Details',
+    APPOINTMENTS:    'Appointments'
+}
 
 class Menu extends Component<any, any> {
     static navigationOptions = {
@@ -21,7 +26,7 @@ class Menu extends Component<any, any> {
 
     componentWillMount() {
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        this.dataSource = ds.cloneWithRows([...Object.keys(mapNavigation)])
+        this.dataSource = ds.cloneWithRows([...Object.keys(mapNavigationNaming)])
     }
 
     render() {
@@ -37,8 +42,7 @@ class Menu extends Component<any, any> {
                             <MenuItem
                                 menuText={rowData}
                                 redirect={() => {
-                                    console.log("navdate", rowData);
-                                    navigate(mapNavigation[rowData]);
+                                    navigate(mapNavigationNaming[rowData]);
                                 }}
                                 title={rowData} />
                         )}

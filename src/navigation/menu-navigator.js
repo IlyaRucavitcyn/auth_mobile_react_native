@@ -1,5 +1,5 @@
 import { StackNavigator } from 'react-navigation';
-import Menu from '../components/Menu';
+import Menu, { menuItemNames } from '../components/Menu';
 import Appointments from '../components/Appointments';
 import AccountDetails from '../components/AccountDetails';
 
@@ -15,9 +15,9 @@ export const MenuNavigator = StackNavigator({
     }
 });
 
-export const mapNavigation = {
-    'Account Details':'AccountDetails',
-    'Appointments':'Appointments'
+export const mapNavigationNaming = {
+    [menuItemNames.ACCOUNT_DETAILS]: AccountDetails.name,
+    [menuItemNames.APPOINTMENTS]: Appointments.name
 }
 
 export default MenuNavigator;
