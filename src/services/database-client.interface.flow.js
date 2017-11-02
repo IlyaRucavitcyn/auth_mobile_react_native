@@ -1,7 +1,6 @@
 /**@flow */
 export interface DatabaseClient {
     initialize(config: FirebaseConfigType): void,
-    // getValue(dbname: string, value: DatabaseEntityType): Promise<any>
 }
 
 export type FirebaseConfigType = {
