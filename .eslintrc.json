@@ -1,0 +1,21 @@
+{
+    "plugins": [
+        "react",
+        "react-native",
+        "flowtype"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react-native/all",
+        "plugin:flowtype/recommended"
+    ],
+    "parser": "babel-eslint",
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+    },
+    "env": {
+        "es6": true
+    }
+}
