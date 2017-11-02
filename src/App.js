@@ -1,34 +1,26 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
  * @flow
  */
-
-import * as React from 'react';
+import type { Node } from 'react';
+import React, { Component } from 'react';
 import FirebaseClient from './services/firebase-client';
 import { FIREBASE_CONFIG } from './config/firebase.config';
-import {
-  Spinner
-} from './components/common';
+import { Spinner } from './components/common';
 import LoginForm from './components/LoginForm';
 import MenuNavigator from './navigation/menu-navigator';
 
-
-type PropType = {
-  header: string,
-  tile: number
-};
+type PropType = {};
 type StateType = {
   loggedIn: boolean | null
 };
 
-class App extends React.Component<PropType, StateType> {
+class App extends Component<PropType, StateType> {
+
   state = { loggedIn: null };
   firebase = FirebaseClient.getClient();
 
-  componentWillMount() {
+  componentWillMount(): void {
     this.firebase.initialize(FIREBASE_CONFIG);
-
     this.firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ loggedIn: true });
@@ -38,7 +30,7 @@ class App extends React.Component<PropType, StateType> {
     });
   }
 
-  renderContent(): React.Node {
+  render(): Node {
     switch (this.state.loggedIn) {
       case true:
         return <MenuNavigator />;
@@ -47,10 +39,6 @@ class App extends React.Component<PropType, StateType> {
       default:
         return <Spinner />;
     }
-  }
-
-  render(): React.Node {
-    return this.renderContent();
   }
 }
 
