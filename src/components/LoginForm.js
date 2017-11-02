@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import FirebaseClient from '../services/firebase-client';
-import { Button, Card, CardSection, Input, Spinner } from './common';
+import { Button, Card, CardSection, Input, Spinner, Header } from './common';
 
 class LoginForm extends Component {
     firebase = FirebaseClient.getClient();
@@ -48,31 +48,34 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <Card>
-                <CardSection>
-                    <Input
-                        placeholder="email@host.com"
-                        label="Email"
-                        value={this.state.email}
-                        onChangeText={email => this.setState({ email })}
-                    />
-                </CardSection>
-                <CardSection>
-                    <Input
-                        secureTextEntry
-                        placeholder="password"
-                        label="Password"
-                        value={this.state.password}
-                        onChangeText={password => this.setState({ password })}
-                    />
-                </CardSection>
-                <Text style={styles.errorTextStyle}>
-                    {this.state.error}
-                </Text>
-                <CardSection>
-                    {this.renderButton()}
-                </CardSection>
-            </Card>
+            <View>
+                <Header headerText="Authentication" />
+                <Card>
+                    <CardSection>
+                        <Input
+                            placeholder="email@host.com"
+                            label="Email"
+                            value={this.state.email}
+                            onChangeText={email => this.setState({ email })}
+                        />
+                    </CardSection>
+                    <CardSection>
+                        <Input
+                            secureTextEntry
+                            placeholder="password"
+                            label="Password"
+                            value={this.state.password}
+                            onChangeText={password => this.setState({ password })}
+                        />
+                    </CardSection>
+                    <Text style={styles.errorTextStyle}>
+                        {this.state.error}
+                    </Text>
+                    <CardSection>
+                        {this.renderButton()}
+                    </CardSection>
+                </Card>
+            </View>
         );
     }
 }

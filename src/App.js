@@ -5,17 +5,14 @@
  */
 
 import * as React from 'react';
-import { View } from 'react-native';
-// import firebase from 'firebase';
 import FirebaseClient from './services/firebase-client';
 import { FIREBASE_CONFIG } from './config/firebase.config';
 import {
-  Header, Button,
-  Spinner, Card,
-  CardSection
+  Spinner
 } from './components/common';
 import LoginForm from './components/LoginForm';
-import Menu from './components/Menu';
+import MenuNavigator from './navigation/menu-navigator';
+
 
 type PropType = {
   header: string,
@@ -44,16 +41,7 @@ class App extends React.Component<PropType, StateType> {
   renderContent(): React.Node {
     switch (this.state.loggedIn) {
       case true:
-        return (
-          <Card>
-            <Menu />
-            <CardSection>
-              <Button onPress={() => this.firebase.auth().signOut()}>
-                LogOut
-              </Button>
-            </CardSection>
-          </Card>
-        );
+        return <MenuNavigator />;
       case false:
         return <LoginForm />;
       default:
@@ -62,12 +50,7 @@ class App extends React.Component<PropType, StateType> {
   }
 
   render(): React.Node {
-    return (
-      <View>
-        <Header headerText="Authentication" />
-        {this.renderContent()}
-      </View>
-    );
+    return this.renderContent();
   }
 }
 

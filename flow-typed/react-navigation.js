@@ -1,4 +1,5 @@
 /**@flow */
-declare module 'firebase' {
+
+declare module 'react-navigation' {
     declare module.exports: any;
 }

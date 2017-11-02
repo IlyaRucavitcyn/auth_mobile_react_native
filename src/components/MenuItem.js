@@ -9,8 +9,6 @@ const styles = {
     menuItemContainerStyle: {
         paddingTop: 10,
         paddingBottom: 10,
-        borderBottomWidth: 1,
-        borderColor: '#ccc',
         justifyContent: 'center',
         alignItems: 'center'
     },
