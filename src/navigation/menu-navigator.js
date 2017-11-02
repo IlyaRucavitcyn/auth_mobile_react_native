@@ -11,15 +11,15 @@ const styles = {
     }
 }
 
-const AccountDetailsScreen = () => (
+const AccountDetails = () => (
     <View style={styles.tempNavigation}>
         <Text> Account Details Screen</Text>
     </View>
 );
 
-const AppointmentsScreen = () => (
+const Appointments = () => (
     <View style={styles.tempNavigation}>
-        <Text> Appointments Screen</Text>
+        <Text>Appointments Screen</Text>
     </View>
 );
 
@@ -28,11 +28,16 @@ export const MenuNavigator = StackNavigator({
         screen: Menu
     },
     AccountDetails: {
-        screen: AccountDetailsScreen
+        screen: AccountDetails
     },
     Appointments: {
-        screen: AppointmentsScreen
+        screen: Appointments
     }
 });
+
+export const mapNavigation = {
+    'Account Details':'AccountDetails',
+    'Appointments':'Appointments'
+}
 
 export default MenuNavigator;

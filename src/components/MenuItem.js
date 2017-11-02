@@ -21,6 +21,8 @@ const styles = {
 
 type PropType = {
     menuText: string,
+    redirect: any,
+    title: string
 };
 
 class MenuItem extends Component<PropType, any> {
@@ -31,7 +33,8 @@ class MenuItem extends Component<PropType, any> {
         return (
             <TouchableHighlight
                 underlayColor="#E0E0DF"
-                onPress={(event) => { console.log("EVENT", event) }}>
+                onPress={this.props.redirect}
+                title={this.props.title}>
                 <View style={menuItemContainerStyle}>
                     <Text style={menuTextStyle}>
                         {this.props.menuText}
