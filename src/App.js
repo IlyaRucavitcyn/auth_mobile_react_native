@@ -3,16 +3,19 @@
  */
 import type { Node } from 'react';
 import React, { Component } from 'react';
+import { observer } from 'mobx-react/native';
 import FirebaseClient from './services/firebase-client';
 import { FIREBASE_CONFIG } from './config/firebase.config';
 import { Spinner } from './components/common';
 import LoginForm from './components/LoginForm';
 import MenuNavigator from './navigation/menu-navigator';
+import UserInfoState from './state/userinfo.state';
 
 type PropType = {};
 type StateType = {
   loggedIn: boolean | null
 };
+
 
 class App extends Component<PropType, StateType> {
 
@@ -23,8 +26,10 @@ class App extends Component<PropType, StateType> {
     this.firebase.initialize(FIREBASE_CONFIG);
     this.firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        UserInfoState.setFirebaseUserInfo(user);
         this.setState({ loggedIn: true });
       } else {
+        UserInfoState.setFirebaseUserInfo({});        
         this.setState({ loggedIn: false });
       }
     });
@@ -42,4 +47,4 @@ class App extends Component<PropType, StateType> {
   }
 }
 
-export default App;
+export default observer(App);

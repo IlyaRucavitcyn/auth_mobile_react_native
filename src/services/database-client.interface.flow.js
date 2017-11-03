@@ -1,7 +1,11 @@
 /**@flow */
 export interface DatabaseClient {
     initialize(config: FirebaseConfigType): void,
-    auth(): any
+    auth(): any,
+    addOrUpdateValue(
+        link: string,
+        data: DatabaseEntityType): Promise<any>
+
 }
 
 export type FirebaseConfigType = {
@@ -14,7 +18,6 @@ export type FirebaseConfigType = {
 }
 
 export type DatabaseEntityType = {
-    email: string,
     firstName: string,
     lastName: string,
     age: number
