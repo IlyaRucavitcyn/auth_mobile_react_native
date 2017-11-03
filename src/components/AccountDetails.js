@@ -1,5 +1,6 @@
 /**@flow */
 import * as React from 'react';
+import { View } from 'react-native';
 import { observer } from 'mobx-react';
 import { menuItemNames } from './Menu';
 import { Card, CardSection, Button, Input, ErrorMessage } from './common';
@@ -8,6 +9,7 @@ import UserInfoState from '../state/userinfo.state';
 
 type PropTypes = {};
 type StateTypes = {
+    componentIsDirty: boolean,
     editMode: boolean,
     firstName: string,
     lastName: string,
@@ -22,12 +24,21 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
     state: StateTypes;
 
     componentWillMount() {
+        if (!this.state) {
+            this.setState({ componentIsDirty: false })
+        }
         this.setState({
             editMode: false,
             firstName: UserInfoState.userInfo.firstName,
             lastName: UserInfoState.userInfo.lastName,
             age: `${UserInfoState.userInfo.age ? UserInfoState.userInfo.age : ''}`,
         })
+    }
+
+    onInputChange() {
+        if (!this.state.componentIsDirty) {
+            this.setState({ componentIsDirty: true });
+        }
     }
 
     onFormSubmit() {
@@ -44,22 +55,21 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
             return (
                 <Button
                     onPress={this.onFormSubmit.bind(this)}
-                >
+                    disabled={false}>
                     Save changes
                 </Button>
             );
         }
         return (
             <Button
-                onPress={() => { this.setState({ editMode: true }) }}
-            >
+                onPress={() => { this.setState({ editMode: true }) }}>
                 Edit profile
             </Button>
         );
     }
 
     renderError(message: string | null): React.Node {
-        if (this.state.editMode) {
+        if (this.state.editMode && this.state.componentIsDirty) {
             return <ErrorMessage message={message} />
         }
     }
@@ -74,7 +84,10 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         label="Firstname"
                         value={this.state.firstName}
                         editable={this.state.editMode}
-                        onChangeText={firstName => this.setState({ firstName })}
+                        onChangeText={firstName => {
+                            this.setState({ firstName });
+                            this.onInputChange();
+                        }}
                     />
                 </CardSection>
                 {this.renderError(ValidationService.isEmpty(this.state.firstName))}
@@ -84,7 +97,10 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         label="Lastname"
                         value={this.state.lastName}
                         editable={this.state.editMode}
-                        onChangeText={lastName => this.setState({ lastName })}
+                        onChangeText={lastName => {
+                            this.setState({ lastName });
+                            this.onInputChange();
+                        }}
                     />
                 </CardSection>
                 {this.renderError(ValidationService.isEmpty(this.state.lastName))}
@@ -94,7 +110,10 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         label="Age"
                         value={this.state.age}
                         editable={this.state.editMode}
-                        onChangeText={age => this.setState({ age })}
+                        onChangeText={age => {
+                            this.setState({ age });
+                            this.onInputChange();
+                        }}
                     />
                 </CardSection>
                 {this.renderError(

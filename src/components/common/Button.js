@@ -4,15 +4,17 @@ import { Text, TouchableOpacity } from 'react-native';
 
 type PropTypes = {
     onPress: any,
-    children: React.Node | Array<React.Node>
+    children: React.Node | Array<React.Node>,
+    disabled?: boolean
 }
 
-const Button = ({ onPress, children }: PropTypes): React.Node => {
+const Button = ({ onPress, children, disabled }: PropTypes): React.Node => {
     const { buttonStyle, textStyle } = styles;
     return (
         <TouchableOpacity
             onPress={onPress}
             style={buttonStyle}
+            disabled={disabled}
         >
             <Text style={textStyle}>
                 {children}
