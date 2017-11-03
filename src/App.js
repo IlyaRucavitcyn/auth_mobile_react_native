@@ -28,7 +28,12 @@ class App extends Component<PropType, StateType> {
       if (user) {
         UserInfoState.setFirebaseUserInfo(user);
         this.firebase.getData(user.uid)
-          .then(data => UserInfoState.setNewUserInfo(data));
+          .then(data => {
+            if (data) {
+              UserInfoState.setNewUserInfo(data)
+            }
+            return;
+          });
         this.setState({ loggedIn: true });
       } else {
         UserInfoState.setFirebaseUserInfo({});

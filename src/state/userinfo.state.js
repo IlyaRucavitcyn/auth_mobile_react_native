@@ -20,6 +20,10 @@ class UserInfoState {
         this.userInfo.firstName = firstName;
         this.userInfo.lastName = lastName;
         this.userInfo.age = age;
+
+        reaction(
+            () => Object.values(this.userInfo),
+            this.onStateChanged.bind(this));
     }
 
     @action
@@ -33,9 +37,5 @@ class UserInfoState {
 }
 
 const userInfoState = new UserInfoState();
-
-reaction(
-    () => Object.values(userInfoState.userInfo),
-    userInfoState.onStateChanged.bind(userInfoState));
 
 export default userInfoState;
