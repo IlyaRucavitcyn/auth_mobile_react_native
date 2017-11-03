@@ -1,6 +1,5 @@
 /**@flow */
 import * as React from 'react';
-import { View } from 'react-native';
 import { observer } from 'mobx-react';
 import { menuItemNames } from './Menu';
 import { Card, CardSection, Button, Input, ErrorMessage } from './common';
