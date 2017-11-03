@@ -27,15 +27,15 @@ class UserInfoState {
         this.firebaseUserInfo = user;
     }
 
-
     onStateChanged() {
-        console.log('State changed!');
+        this.firebase.addOrUpdateValue(`${this.firebaseUserInfo.uid}`, this.userInfo);
     }
 }
 
 const userInfoState = new UserInfoState();
+
 reaction(
     () => Object.values(userInfoState.userInfo),
-    userInfoState.onStateChanged);
+    userInfoState.onStateChanged.bind(userInfoState));
 
 export default userInfoState;

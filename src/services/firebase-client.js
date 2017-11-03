@@ -2,7 +2,8 @@
 import firebase from "firebase";
 import type { 
     DatabaseClient,
-    FirebaseConfigType
+        FirebaseConfigType,
+        DatabaseEntityType
 } from "./database-client.interface.flow";
 
 export default class FirebaseClient implements DatabaseClient {
@@ -21,5 +22,8 @@ export default class FirebaseClient implements DatabaseClient {
 
     auth(): Promise<any> {
         return firebase.auth();
+    }
+    addOrUpdateValue(link: string, data: DatabaseEntityType): void {
+        firebase.database().ref(link).update(data);
     }
 }
