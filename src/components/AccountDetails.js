@@ -3,7 +3,7 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { menuItemNames } from './Menu';
 import { Card, CardSection, Button, Input, ErrorMessage } from './common';
-import ValidationService from '../services/validation.service';
+import ErrorMessageGenerationService from '../services/error-message-generation.service';
 import UserInfoState from '../state/userinfo.state';
 
 type PropTypes = {};
@@ -89,7 +89,9 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         }}
                     />
                 </CardSection>
-                {this.renderError(ValidationService.isEmpty(this.state.firstName))}
+                {this.renderError(
+                    ErrorMessageGenerationService.generateRequireMessage(this.state.firstName)
+                    )}
                 <CardSection>
                     <Input
                         placeholder="Enter Your Lastname"
@@ -102,7 +104,9 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         }}
                     />
                 </CardSection>
-                {this.renderError(ValidationService.isEmpty(this.state.lastName))}
+                {this.renderError(
+                    ErrorMessageGenerationService.generateRequireMessage(this.state.lastName)
+                    )}
                 <CardSection>
                     <Input
                         placeholder="Enter Your Age"
@@ -116,8 +120,8 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                     />
                 </CardSection>
                 {this.renderError(
-                    ValidationService.isEmpty(this.state.age) ||
-                    ValidationService.isNumber(this.state.age)
+                    ErrorMessageGenerationService.generateRequireMessage(this.state.age) ||
+                    ErrorMessageGenerationService.generateShouldBeNumberMessage(this.state.age)
                 )}
                 <CardSection>
                     {this.renderButtonBasedOnEditMode()}

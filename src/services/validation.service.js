@@ -1,17 +1,16 @@
-import { ERROR_MESSAGES } from '../config/error-messages';
 
 export default class ValidationService {
-    static isEmpty(value) {
+    static isNotEmpty(value) {
         if (!value) {
-            return ERROR_MESSAGES.REQUIRED;
+            return false;
         }
-        return null;
+        return true;
     }
 
     static isNumber(value) {
         if (!value || isNaN(value)) {
-            return ERROR_MESSAGES.NOT_A_NUMBER
+            return false
         }
-        return null;
+        return true;
     }
 }
