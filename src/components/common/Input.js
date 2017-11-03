@@ -1,13 +1,24 @@
-import React from 'react';
+/**@flow */
+import * as React from 'react';
 import { Text, TextInput, View } from 'react-native';
 
-const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => {
+type PropTypes = {
+    label: string,
+    value: string,
+    onChangeText: any,
+    placeholder: string,
+    secureTextEntry?: boolean,
+    editable?: boolean
+}
+
+const Input = ({ label, value, onChangeText, placeholder, secureTextEntry, editable }: PropTypes): React.Node => {
     const { inputStyle, labelStyle, containerStyle } = styles;
     return (
         <View style={containerStyle}>
             <Text style={labelStyle}>{label}</Text>
             <TextInput
                 secureTextEntry={secureTextEntry}
+                editable={editable}
                 placeholder={placeholder}
                 autoCorrect={false}
                 style={inputStyle}

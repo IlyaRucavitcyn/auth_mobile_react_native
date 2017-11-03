@@ -1,7 +1,13 @@
-import React from 'react';
+/**@flow */
+import * as React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-const Button = ({ onPress, children }) => {
+type PropTypes = {
+    onPress: any,
+    children: React.Node | Array<React.Node>
+}
+
+const Button = ({ onPress, children }: PropTypes): React.Node => {
     const { buttonStyle, textStyle } = styles;
     return (
         <TouchableOpacity

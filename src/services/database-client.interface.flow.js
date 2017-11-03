@@ -1,6 +1,7 @@
 /**@flow */
 export interface DatabaseClient {
     initialize(config: FirebaseConfigType): void,
+    auth(): any
 }
 
 export type FirebaseConfigType = {
