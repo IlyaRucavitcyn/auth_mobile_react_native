@@ -4,8 +4,8 @@ export interface DatabaseClient {
     auth(): any,
     addOrUpdateValue(
         link: string,
-        data: DatabaseEntityType): void
-
+        data: DatabaseEntityType): void,
+    getData(link: string): Promise<any>
 }
 
 export type FirebaseConfigType = {

@@ -26,4 +26,8 @@ export default class FirebaseClient implements DatabaseClient {
     addOrUpdateValue(link: string, data: DatabaseEntityType): void {
         firebase.database().ref(link).update(data);
     }
+    getData(link: string): Promise<any> {
+        return firebase.database().ref(link).once('value')
+            .then(snapshot => snapshot.val())
+    }
 }
