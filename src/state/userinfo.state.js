@@ -23,7 +23,7 @@ class UserInfoState {
 
         reaction(
             () => Object.values(this.userInfo),
-            this.onStateChanged.bind(this));
+            this.onUserInfoChanged.bind(this));
     }
 
     @action
@@ -31,11 +31,9 @@ class UserInfoState {
         this.firebaseUserInfo = user;
     }
 
-    onStateChanged() {
+    onUserInfoChanged() {
         this.firebase.addOrUpdateValue(`${this.firebaseUserInfo.uid}`, this.userInfo);
     }
 }
 
-const userInfoState = new UserInfoState();
-
-export default userInfoState;
+export default new UserInfoState();

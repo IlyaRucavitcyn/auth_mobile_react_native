@@ -1,9 +1,9 @@
 /**@flow */
 import * as React from 'react';
 import { observer } from 'mobx-react';
-// import { View, Text } from 'react-native';
-import { menuItemNames } from './Menu'
-import { Card, CardSection, Button, Input } from './common'
+import { menuItemNames } from './Menu';
+import { Card, CardSection, Button, Input, ErrorMessage } from './common';
+import ValidationService from '../services/validation.service';
 import UserInfoState from '../state/userinfo.state';
 
 type PropTypes = {};
@@ -57,6 +57,13 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
             </Button>
         );
     }
+
+    renderError(message: string | null): React.Node {
+        if (this.state.editMode) {
+            return <ErrorMessage message={message} />
+        }
+    }
+
     render() {
         return (
 
@@ -70,6 +77,7 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         onChangeText={firstName => this.setState({ firstName })}
                     />
                 </CardSection>
+                {this.renderError(ValidationService.isEmpty(this.state.firstName))}
                 <CardSection>
                     <Input
                         placeholder="Enter Your Lastname"
@@ -79,6 +87,7 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         onChangeText={lastName => this.setState({ lastName })}
                     />
                 </CardSection>
+                {this.renderError(ValidationService.isEmpty(this.state.lastName))}
                 <CardSection>
                     <Input
                         placeholder="Enter Your Age"
@@ -88,6 +97,10 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         onChangeText={age => this.setState({ age })}
                     />
                 </CardSection>
+                {this.renderError(
+                    ValidationService.isEmpty(this.state.age) ||
+                    ValidationService.isNumber(this.state.age)
+                )}
                 <CardSection>
                     {this.renderButtonBasedOnEditMode()}
                 </CardSection>
