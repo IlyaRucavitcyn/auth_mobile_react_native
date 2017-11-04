@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { menuItemNames } from './Menu';
 import { Card, CardSection, Button, Input, ErrorMessage } from './common';
 import ErrorMessageGenerationService from '../services/error-message-generation.service';
+import ValidationService from '../services/validation.service';
 import UserInfoState from '../state/userinfo.state';
 
 type PropTypes = {};
@@ -23,10 +24,8 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
     state: StateTypes;
 
     componentWillMount() {
-        if (!this.state) {
-            this.setState({ componentIsDirty: false })
-        }
         this.setState({
+            componentIsDirty: false,
             editMode: false,
             firstName: UserInfoState.userInfo.firstName,
             lastName: UserInfoState.userInfo.lastName,
@@ -91,7 +90,7 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                 </CardSection>
                 {this.renderError(
                     ErrorMessageGenerationService.generateRequireMessage(this.state.firstName)
-                    )}
+                )}
                 <CardSection>
                     <Input
                         placeholder="Enter Your Lastname"
@@ -99,14 +98,15 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         value={this.state.lastName}
                         editable={this.state.editMode}
                         onChangeText={lastName => {
-                            this.setState({ lastName });
-                            this.onInputChange();
+                            this.setState({ lastName }, () => {
+                                this.onInputChange();
+                            })
                         }}
                     />
                 </CardSection>
                 {this.renderError(
                     ErrorMessageGenerationService.generateRequireMessage(this.state.lastName)
-                    )}
+                )}
                 <CardSection>
                     <Input
                         placeholder="Enter Your Age"
