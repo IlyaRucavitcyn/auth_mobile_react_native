@@ -3,7 +3,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { observer } from 'mobx-react';
 import { menuItemNames } from './Menu';
-import { Card, CardSection, Button, Input, ErrorMessage } from './common';
+import { Card, CardSection, Button, Input, ErrorMessageList } from './common';
 import ErrorMessageGenerationService from '../services/error-message-generation.service';
 import ValidationService from '../services/validation.service';
 import UserInfoState from '../state/userinfo.state';
@@ -98,9 +98,9 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
         );
     }
 
-    renderError(message: string | null): React.Node {
+    renderError(...messages: (string | null)[]): React.Node {
         if (this.state.editMode && this.state.componentIsDirty) {
-            return <ErrorMessage message={message} />
+            return <ErrorMessageList messages={messages} />
         }
     }
 
@@ -153,7 +153,7 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                     />
                 </CardSection>
                 {this.renderError(
-                    ErrorMessageGenerationService.generateRequireMessage(this.state.age) ||
+                    ErrorMessageGenerationService.generateRequireMessage(this.state.age) ,
                     ErrorMessageGenerationService.generateShouldBeNumberMessage(this.state.age)
                 )}
                 {this.renderButtonBasedOnEditMode()}

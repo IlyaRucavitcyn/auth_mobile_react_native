@@ -1,15 +1,23 @@
+/**@flow */
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import FirebaseClient from '../services/firebase-client';
-import { Button, Card, CardSection, Input, Spinner, Header } from './common';
+import {
+    Button, Card, CardSection,
+    Input, Spinner, Header, ErrorMessageList
+} from './common';
+import ErrorMessageGenerationService from '../services/error-message-generation.service';
+import ValidationService from '../services/validation.service';
 
-class LoginForm extends Component {
+class LoginForm extends Component<any, any> {
     firebase = FirebaseClient.getClient();
     state = {
         email: '',
         password: '',
         error: '',
-        loading: false
+        loading: false,
+        componentFormIsValid: false,
+        componentIsDirty: false
     };
 
     onButtonPress() {
@@ -34,16 +42,35 @@ class LoginForm extends Component {
             error: ''
         });
     }
+    validateFormFields() {
+        const isFormValid = ValidationService.isNotEmpty(this.state.email) &&
+            ValidationService.isNotEmpty(this.state.password);
+        this.setState({ componentFormIsValid: isFormValid })
 
+    }
+    onInputChange() {
+        if (!this.state.componentIsDirty) {
+            this.setState({ componentIsDirty: true });
+        }
+        this.validateFormFields();
+    }
     renderButton() {
         if (this.state.loading) {
             return <Spinner size="small" />;
         }
         return (
-            <Button onPress={this.onButtonPress.bind(this)}>
+            <Button
+                onPress={this.onButtonPress.bind(this)}
+                disabled={!this.state.componentFormIsValid}>
                 Log in
             </Button>
         );
+    }
+
+    renderError(...messages: (string | null)[]) {
+        if (this.state.componentIsDirty) {
+            return <ErrorMessageList messages={messages} />
+        }
     }
 
     render() {
@@ -56,18 +83,28 @@ class LoginForm extends Component {
                             placeholder="email@host.com"
                             label="Email"
                             value={this.state.email}
-                            onChangeText={email => this.setState({ email })}
+                            onChangeText={email => {
+                                this.setState({ email }, this.onInputChange.bind(this));
+                            }}
                         />
                     </CardSection>
+                    {this.renderError(
+                        ErrorMessageGenerationService.generateRequireMessage(this.state.email)
+                    )}
                     <CardSection>
                         <Input
                             secureTextEntry
                             placeholder="password"
                             label="Password"
                             value={this.state.password}
-                            onChangeText={password => this.setState({ password })}
+                            onChangeText={password => {
+                                this.setState({ password }, this.onInputChange.bind(this));
+                            }}
                         />
                     </CardSection>
+                    {this.renderError(
+                        ErrorMessageGenerationService.generateRequireMessage(this.state.password)
+                    )}
                     <Text style={styles.errorTextStyle}>
                         {this.state.error}
                     </Text>
