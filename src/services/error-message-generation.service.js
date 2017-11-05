@@ -15,4 +15,10 @@ export default class ErrorMessageGenerationService {
             ? null
             : ERROR_MESSAGES.NOT_A_NUMBER
     }
+
+    static generateShouldBeEmail(value: string) {
+        return ValidationService.isEmail(value)
+            ? null
+            : ERROR_MESSAGES.NOT_AN_EMAIL
+    }
 }

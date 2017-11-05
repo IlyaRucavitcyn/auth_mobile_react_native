@@ -44,6 +44,7 @@ class LoginForm extends Component<any, any> {
     }
     validateFormFields() {
         const isFormValid = ValidationService.isNotEmpty(this.state.email) &&
+            ValidationService.isEmail(this.state.email) &&
             ValidationService.isNotEmpty(this.state.password);
         this.setState({ componentFormIsValid: isFormValid })
 
@@ -89,7 +90,8 @@ class LoginForm extends Component<any, any> {
                         />
                     </CardSection>
                     {this.renderError(
-                        ErrorMessageGenerationService.generateRequireMessage(this.state.email)
+                        ErrorMessageGenerationService.generateRequireMessage(this.state.email),
+                        ErrorMessageGenerationService.generateShouldBeEmail(this.state.email)
                     )}
                     <CardSection>
                         <Input
