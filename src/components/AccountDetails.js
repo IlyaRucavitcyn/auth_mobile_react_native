@@ -1,5 +1,6 @@
 /**@flow */
 import * as React from 'react';
+import { View } from 'react-native';
 import { observer } from 'mobx-react';
 import { menuItemNames } from './Menu';
 import { Card, CardSection, Button, Input, ErrorMessage } from './common';
@@ -9,6 +10,7 @@ import UserInfoState from '../state/userinfo.state';
 
 type PropTypes = {};
 type StateTypes = {
+    componentFormIsValid: boolean,
     componentIsDirty: boolean,
     editMode: boolean,
     firstName: string,
@@ -24,19 +26,32 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
     state: StateTypes;
 
     componentWillMount() {
+        this.syncComponentWithState();
         this.setState({
             componentIsDirty: false,
             editMode: false,
+        }, this.validateFormFields.bind(this))
+    }
+    syncComponentWithState() {
+        this.setState({
             firstName: UserInfoState.userInfo.firstName,
             lastName: UserInfoState.userInfo.lastName,
             age: `${UserInfoState.userInfo.age ? UserInfoState.userInfo.age : ''}`,
         })
+    }
+    validateFormFields() {
+        const formIsValid = ValidationService.isNotEmpty(this.state.firstName) &&
+            ValidationService.isNotEmpty(this.state.lastName) &&
+            ValidationService.isNotEmpty(this.state.age) &&
+            ValidationService.isNumber(this.state.age);
+        this.setState({ componentFormIsValid: formIsValid });
     }
 
     onInputChange() {
         if (!this.state.componentIsDirty) {
             this.setState({ componentIsDirty: true });
         }
+        this.validateFormFields();
     }
 
     onFormSubmit() {
@@ -48,21 +63,38 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
         this.setState({ editMode: false })
     }
 
+    onFormCancelSubmit() {
+        this.syncComponentWithState();
+        this.setState({ editMode: false });
+    }
+
     renderButtonBasedOnEditMode(): React.Node {
         if (this.state.editMode) {
             return (
-                <Button
-                    onPress={this.onFormSubmit.bind(this)}
-                    disabled={false}>
-                    Save changes
-                </Button>
+                <View>
+                    <CardSection>
+                        <Button
+                            onPress={this.onFormSubmit.bind(this)}
+                            disabled={!this.state.componentFormIsValid}>
+                            Save changes
+                        </Button>
+                    </CardSection>
+                    <CardSection>
+                        <Button
+                            onPress={this.onFormCancelSubmit.bind(this)}>
+                            Cancel
+                    </Button>
+                    </CardSection>
+                </View>
             );
         }
         return (
-            <Button
-                onPress={() => { this.setState({ editMode: true }) }}>
-                Edit profile
-            </Button>
+            <CardSection>
+                <Button
+                    onPress={() => { this.setState({ editMode: true }) }}>
+                    Edit profile
+                </Button>
+            </CardSection>
         );
     }
 
@@ -74,7 +106,6 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
 
     render() {
         return (
-
             <Card>
                 <CardSection>
                     <Input
@@ -83,8 +114,9 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         value={this.state.firstName}
                         editable={this.state.editMode}
                         onChangeText={firstName => {
-                            this.setState({ firstName });
-                            this.onInputChange();
+                            this.setState({ firstName }, () => {
+                                this.onInputChange();
+                            });
                         }}
                     />
                 </CardSection>
@@ -114,8 +146,9 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         value={this.state.age}
                         editable={this.state.editMode}
                         onChangeText={age => {
-                            this.setState({ age });
-                            this.onInputChange();
+                            this.setState({ age }, () => {
+                                this.onInputChange();
+                            });
                         }}
                     />
                 </CardSection>
@@ -123,9 +156,7 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                     ErrorMessageGenerationService.generateRequireMessage(this.state.age) ||
                     ErrorMessageGenerationService.generateShouldBeNumberMessage(this.state.age)
                 )}
-                <CardSection>
-                    {this.renderButtonBasedOnEditMode()}
-                </CardSection>
+                {this.renderButtonBasedOnEditMode()}
             </Card>
         );
     }

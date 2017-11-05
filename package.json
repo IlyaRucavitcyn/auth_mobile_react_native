@@ -5,7 +5,8 @@
   "scripts": {
     "ios": "react-native run-ios",
     "android": "react-native run-android",
-    "flow": "flow"
+    "flow": "flow",
+    "flow:coverage":"flow coverage"
   },
   "dependencies": {
     "axios": "^0.17.0",
