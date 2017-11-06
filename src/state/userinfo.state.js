@@ -12,14 +12,16 @@ class UserInfoState {
     userInfo: any = {
         firstName: '',
         lastName: '',
-        age: null
+        age: null,
+        staffAvailable: []
     }
 
     @action
-    setNewUserInfo({ firstName, lastName, age }: any) {
+    setNewUserInfo({ firstName, lastName, age, staffAvailable }: any) {
         this.userInfo.firstName = firstName;
         this.userInfo.lastName = lastName;
         this.userInfo.age = age;
+        this.userInfo.staffAvailable = staffAvailable;
 
         reaction(
             () => Object.values(this.userInfo),

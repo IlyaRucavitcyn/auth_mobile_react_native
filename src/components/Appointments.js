@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { observer } from 'mobx-react';
 import Picker from 'react-native-modal-selector';
+import DatePicker from 'react-native-datepicker';
 import { Card, CardSection } from './common';
 import { menuItemNames } from './Menu';
-import DatePicker from 'react-native-datepicker';
+import UserInfoState from '../state/userinfo.state';
 
+@observer
 export default class Appointments extends Component {
     static navigationOptions = {
         title: menuItemNames.APPOINTMENTS
@@ -17,31 +20,22 @@ export default class Appointments extends Component {
         const { labelStyle, containerStyle,
             dateStyle, selectStyle } = styles;
 
-        let index = 0;
-        const data = [
-            { key: index++, section: true, label: 'Fruits' },
-            { key: index++, label: 'Red Apples' },
-            { key: index++, label: 'Cherries' },
-            { key: index++, label: 'Cranberries' },
-            { key: index++, label: 'Pink Grapefruit' },
-            { key: index++, label: 'Raspberries' },
-            { key: index++, section: true, label: 'Vegetables' },
-            { key: index++, label: 'Beets' },
-            { key: index++, label: 'Red Peppers' },
-            { key: index++, label: 'Radishes' },
-            { key: index++, label: 'Radicchio' },
-            { key: index++, label: 'Red Onions' },
-            { key: index++, label: 'Red Potatoes' },
-            { key: index++, label: 'Rhubarb' },
-            { key: index++, label: 'Tomatoes' }
-        ];
+
+        const data = UserInfoState.userInfo.staffAvailable.map(
+            (employee, index) => ({
+                index,
+                key: index,
+                value: employee,
+                label: employee
+            })
+        )
 
         return (
             <Card>
                 <CardSection>
                     <Picker
                         data={data}
-                        initValue="Select something!"
+                        initValue="Select spec for appointment"
                         style={selectStyle} />
                 </CardSection>
                 <CardSection>
