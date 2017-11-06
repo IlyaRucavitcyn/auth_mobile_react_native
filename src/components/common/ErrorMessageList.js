@@ -6,10 +6,11 @@ import { ErrorMessage } from './ErrorMessage';
 
 type PropTypes = {
     messages: Array<string>,
+    shouldBeShown?: boolean
 }
 
-const ErrorMessageList = ({ messages }: PropTypes): React.Node => {
-    if (messages.length) {
+const ErrorMessageList = ({ messages, shouldBeShown }: PropTypes): React.Node => {
+    if (shouldBeShown && messages.length) {
         const errorsToBeShown = messages.map(
             (message, index) => <ErrorMessage key={index} message={message} />
         );

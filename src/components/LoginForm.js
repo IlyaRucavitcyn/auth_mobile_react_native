@@ -25,11 +25,7 @@ class LoginForm extends Component<any, any> {
         this.setState({ error: '', loading: true });
         this.firebase.auth().signInWithEmailAndPassword(email, password)
             .then(this.onLoginSuccess.bind(this))
-            .catch(() => {
-                this.firebase.auth().createUserWithEmailAndPassword(email, password)
-                    .then(this.onLoginSuccess.bind(this))
-                    .catch(this.onLoginFail.bind(this));
-            });
+            .catch(this.onLoginFail.bind(this));
     }
     onLoginFail() {
         this.setState({ error: 'Authentication failed', loading: false });
@@ -68,12 +64,6 @@ class LoginForm extends Component<any, any> {
         );
     }
 
-    renderError(...messages: (string | null)[]) {
-        if (this.state.componentIsDirty) {
-            return <ErrorMessageList messages={messages} />
-        }
-    }
-
     render() {
         return (
             <View>
@@ -89,10 +79,13 @@ class LoginForm extends Component<any, any> {
                             }}
                         />
                     </CardSection>
-                    {this.renderError(
-                        ErrorMessageGenerationService.generateRequireMessage(this.state.email),
-                        ErrorMessageGenerationService.generateShouldBeEmail(this.state.email)
-                    )}
+                    <ErrorMessageList
+                        messages={[
+                            ErrorMessageGenerationService.generateRequireMessage(this.state.email),
+                            ErrorMessageGenerationService.generateShouldBeEmail(this.state.email)
+                        ]}
+                        shouldBeShown={this.state.componentIsDirty} />
+
                     <CardSection>
                         <Input
                             secureTextEntry
@@ -104,9 +97,11 @@ class LoginForm extends Component<any, any> {
                             }}
                         />
                     </CardSection>
-                    {this.renderError(
-                        ErrorMessageGenerationService.generateRequireMessage(this.state.password)
-                    )}
+                    <ErrorMessageList
+                        messages={[
+                            ErrorMessageGenerationService.generateRequireMessage(this.state.password)
+                        ]}
+                        shouldBeShown={this.state.componentIsDirty} />
                     <Text style={styles.errorTextStyle}>
                         {this.state.error}
                     </Text>

@@ -71,21 +71,17 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
     renderButtonBasedOnEditMode(): React.Node {
         if (this.state.editMode) {
             return (
-                <View>
-                    <CardSection>
-                        <Button
-                            onPress={this.onFormSubmit.bind(this)}
-                            disabled={!this.state.componentFormIsValid}>
-                            Save changes
+                <CardSection>
+                    <Button
+                        onPress={this.onFormSubmit.bind(this)}
+                        disabled={!this.state.componentFormIsValid}>
+                        Save changes
                         </Button>
-                    </CardSection>
-                    <CardSection>
-                        <Button
-                            onPress={this.onFormCancelSubmit.bind(this)}>
-                            Cancel
+                    <Button
+                        onPress={this.onFormCancelSubmit.bind(this)}>
+                        Cancel
                     </Button>
-                    </CardSection>
-                </View>
+                </CardSection>
             );
         }
         return (
@@ -120,9 +116,11 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         }}
                     />
                 </CardSection>
-                {this.renderError(
-                    ErrorMessageGenerationService.generateRequireMessage(this.state.firstName)
-                )}
+                <ErrorMessageList
+                    messages={[
+                        ErrorMessageGenerationService.generateRequireMessage(this.state.firstName)
+                    ]}
+                    shouldBeShown={this.state.componentIsDirty} />
                 <CardSection>
                     <Input
                         placeholder="Enter Your Lastname"
@@ -136,9 +134,11 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         }}
                     />
                 </CardSection>
-                {this.renderError(
-                    ErrorMessageGenerationService.generateRequireMessage(this.state.lastName)
-                )}
+                <ErrorMessageList
+                    messages={[
+                        ErrorMessageGenerationService.generateRequireMessage(this.state.lastName)
+                    ]}
+                    shouldBeShown={this.state.componentIsDirty} />
                 <CardSection>
                     <Input
                         placeholder="Enter Your Age"
@@ -152,10 +152,12 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                         }}
                     />
                 </CardSection>
-                {this.renderError(
-                    ErrorMessageGenerationService.generateRequireMessage(this.state.age) ,
-                    ErrorMessageGenerationService.generateShouldBeNumberMessage(this.state.age)
-                )}
+                <ErrorMessageList
+                    messages={[
+                        ErrorMessageGenerationService.generateRequireMessage(this.state.age),
+                        ErrorMessageGenerationService.generateShouldBeNumberMessage(this.state.age)
+                    ]}
+                    shouldBeShown={this.state.componentIsDirty} />
                 {this.renderButtonBasedOnEditMode()}
             </Card>
         );
