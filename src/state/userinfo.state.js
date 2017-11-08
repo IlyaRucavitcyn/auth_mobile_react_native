@@ -38,6 +38,7 @@ class UserInfoState {
 
     @action
     setUserAppointments(data: { [id: string]: UserAppointmentType }) {
+        //$FlowFixMe
         this.userAppointments = Object.values(data);
     }
 
