@@ -4,7 +4,7 @@ export interface DatabaseClient {
     auth(): any,
     addOrUpdateValue(
         link: string,
-        data: DatabaseEntityType): void,
+        data: DatabaseEntityUserInfoType | DatabaseEntityUserAppointmentsType): void,
     getData(link: string): Promise<any>
 }
 
@@ -17,8 +17,15 @@ export type FirebaseConfigType = {
     messagingSenderId: string
 }
 
-export type DatabaseEntityType = {
+export type DatabaseEntityUserInfoType = {
     firstName: string,
     lastName: string,
-    age: number
+    age: number | null,
 }
+
+export type UserAppointmentType = {
+    datetime: string,
+    staff: string,
+};
+
+export type DatabaseEntityUserAppointmentsType = Array<UserAppointmentType>;

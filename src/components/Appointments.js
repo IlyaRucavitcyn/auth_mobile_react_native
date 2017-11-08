@@ -3,25 +3,34 @@ import { View, Text } from 'react-native';
 import { observer } from 'mobx-react';
 import Picker from 'react-native-modal-selector';
 import DatePicker from 'react-native-datepicker';
-import { Card, CardSection } from './common';
+import { Card, CardSection, Button } from './common';
 import { menuItemNames } from './Menu';
 import UserInfoState from '../state/userinfo.state';
+import FirebaseClient from '../services/firebase-client';
+
 
 @observer
 export default class Appointments extends Component {
     static navigationOptions = {
         title: menuItemNames.APPOINTMENTS
     };
+    firebase = FirebaseClient.getClient();
     state = {
-        date: '',
-        language: 'Java'
+        datetime: '',
+        staff: ''
+    }
+    onAppointmentSaved() {
+        UserInfoState.addAppointment(this.state);
+        console.log('SAVED', UserInfoState.userInfo.appointments);
     }
     render() {
-        const { labelStyle, containerStyle,
-            dateStyle, selectStyle } = styles;
+        const { labelStyle,
+            containerStyle,
+            dateStyle,
+            selectStyle } = styles;
 
 
-        const data = UserInfoState.userInfo.staffAvailable.map(
+        const staffAvailable = UserInfoState.staffAvailable.map(
             (employee, index) => ({
                 index,
                 key: index,
@@ -34,16 +43,18 @@ export default class Appointments extends Component {
             <Card>
                 <CardSection>
                     <Picker
-                        data={data}
-                        initValue="Select spec for appointment"
-                        style={selectStyle} />
+                        data={staffAvailable}
+                        initValue="Please select the specialist"
+                        style={selectStyle}
+                        cancelText={`Cancel`}
+                        onChange={(staff => this.setState({ staff: staff.value }))} />
                 </CardSection>
                 <CardSection>
                     <View style={containerStyle}>
                         <Text style={labelStyle}>Date</Text>
                         <DatePicker
                             style={dateStyle}
-                            date={this.state.date}
+                            date={this.state.datetime}
                             mode="datetime"
                             placeholder="select date"
                             format="'MMMM Do YYYY, h:mm:ss a'"
@@ -61,9 +72,16 @@ export default class Appointments extends Component {
                                     borderColor: '#fff'
                                 }
                             }}
-                            onDateChange={(date) => { this.setState({ date: date }) }}
+                            onDateChange={datetime => this.setState({ datetime })}
                         />
                     </View>
+                </CardSection>
+                <CardSection>
+                    <Button
+                        disabled={!this.state.datetime || !this.state.staff}
+                        onPress={this.onAppointmentSaved.bind(this)}>
+                        Save appointmen
+                    </Button>
                 </CardSection>
             </Card >
         );
@@ -84,7 +102,6 @@ const styles = {
     },
     dateStyle: {
         flex: 2,
-        border: 'none'
     },
     selectStyle: {
         flex: 1,

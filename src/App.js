@@ -3,7 +3,7 @@
  */
 import type { Node } from 'react';
 import React, { Component } from 'react';
-import { observer } from 'mobx-react/native';
+import { observer } from 'mobx-react';
 import FirebaseClient from './services/firebase-client';
 import { FIREBASE_CONFIG } from './config/firebase.config';
 import { Spinner } from './components/common';
@@ -30,7 +30,7 @@ class App extends Component<PropType, StateType> {
         this.firebase.getData(user.uid)
           .then(data => {
             if (data) {
-              UserInfoState.setNewUserInfo(data)
+              UserInfoState.setNewUserInfo(data);
             }
             return;
           });
