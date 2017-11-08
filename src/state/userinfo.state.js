@@ -75,12 +75,4 @@ class UserInfoState {
 
 const userInfoState = new UserInfoState();
 
-// reaction(
-//     () => Object.values(userInfoState.userInfo),
-//     userInfoState.onUserInfoChanged.bind(userInfoState));
-
-// reaction(
-//     () => userInfoState.userAppointments.length,
-//     userInfoState.onUserAppointmentsChanged.bind(userInfoState));
-
 export default userInfoState;

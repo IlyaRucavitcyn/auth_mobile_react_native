@@ -1,6 +1,5 @@
 /**@flow */
 import * as React from 'react';
-import { View } from 'react-native';
 import { observer } from 'mobx-react';
 import { menuItemNames } from './Menu';
 import { Card, CardSection, Button, Input, ErrorMessageList } from './common';
@@ -92,12 +91,6 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
                 </Button>
             </CardSection>
         );
-    }
-
-    renderError(...messages: (string | null)[]): React.Node {
-        if (this.state.editMode && this.state.componentIsDirty) {
-            return <ErrorMessageList messages={messages} />
-        }
     }
 
     render() {
