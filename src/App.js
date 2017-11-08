@@ -31,7 +31,11 @@ class App extends Component<PropType, StateType> {
           .then(data => {
             if (data) {
               UserInfoState.setNewUserInfo(data);
+              if (data.appointments) {
+                UserInfoState.setUserAppointments(data.appointments)
+              }
             }
+            UserInfoState.setReactions();
             return;
           });
         this.setState({ loggedIn: true });

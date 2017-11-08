@@ -13,7 +13,7 @@ import { mapNavigationNaming } from '../navigation/menu-navigator';
 
 export const menuItemNames = {
     ACCOUNT_DETAILS: 'Account Details',
-    APPOINTMENTS:    'Appointments'
+    APPOINTMENTS: 'Appointments'
 }
 
 class Menu extends Component<any, any> {

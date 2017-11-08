@@ -3,7 +3,8 @@ import { observable, action, reaction } from 'mobx';
 import FirebaseClient from '../services/firebase-client';
 import type { 
     DatabaseEntityUserInfoType,
-        DatabaseEntityUserAppointmentsType
+        DatabaseEntityUserAppointmentsType,
+        UserAppointmentType
 } from "../services/database-client.interface.flow";
 
 class UserInfoState {
@@ -36,6 +37,11 @@ class UserInfoState {
     }
 
     @action
+    setUserAppointments(data: { [id: string]: UserAppointmentType }) {
+        this.userAppointments = Object.values(data);
+    }
+
+    @action
     addAppointment(newAppointment: any) {
         this.userAppointments.push(newAppointment)
     }
@@ -54,16 +60,26 @@ class UserInfoState {
             `${this.firebaseUserInfo.uid}/appointments`,
             this.userAppointments[this.userAppointments.length - 1]);
     }
+
+    setReactions() {
+        reaction(
+            () => Object.values(this.userInfo),
+            this.onUserInfoChanged.bind(this));
+
+        reaction(
+            () => this.userAppointments.length,
+            this.onUserAppointmentsChanged.bind(this));
+    }
 }
 
 const userInfoState = new UserInfoState();
 
-reaction(
-    () => Object.values(userInfoState.userInfo),
-    userInfoState.onUserInfoChanged.bind(userInfoState));
+// reaction(
+//     () => Object.values(userInfoState.userInfo),
+//     userInfoState.onUserInfoChanged.bind(userInfoState));
 
-reaction(
-    () => userInfoState.userAppointments.length,
-    userInfoState.onUserAppointmentsChanged.bind(userInfoState));
+// reaction(
+//     () => userInfoState.userAppointments.length,
+//     userInfoState.onUserAppointmentsChanged.bind(userInfoState));
 
 export default userInfoState;
