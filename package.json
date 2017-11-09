@@ -5,6 +5,7 @@
   "scripts": {
     "ios": "react-native run-ios",
     "android": "react-native run-android",
+    "link":"react-native link",
     "flow": "flow",
     "flow:coverage": "flow coverage"
   },

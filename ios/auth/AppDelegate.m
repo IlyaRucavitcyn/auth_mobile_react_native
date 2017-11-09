@@ -60,6 +60,6 @@
    - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
    {
     [RCTPushNotificationManager didReceiveLocalNotification:notification];
-   }Ï
+   }
 
 @end
