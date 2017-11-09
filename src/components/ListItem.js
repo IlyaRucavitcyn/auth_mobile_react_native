@@ -25,7 +25,7 @@ type PropType = {
     title: string
 };
 
-class MenuItem extends Component<PropType, any> {
+class ListItem extends Component<PropType, any> {
     render() {
         const {
             menuItemContainerStyle,
@@ -45,4 +45,4 @@ class MenuItem extends Component<PropType, any> {
     }
 }
 
-export default MenuItem;
+export default ListItem;

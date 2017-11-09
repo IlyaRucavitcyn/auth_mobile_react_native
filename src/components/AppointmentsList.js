@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { observer } from 'mobx-react';
 import { Button, CardSection, Card } from './common';
-import MenuItem from './MenuItem';
+import ListItem from './ListItem';
 import UserInfoState from '../state/userinfo.state';
 
 @observer
@@ -23,7 +23,7 @@ class AppointmentsList extends Component<any, any> {
                         <ListView
                             dataSource={this.dataSource}
                             renderRow={(rowData) => (
-                                <MenuItem
+                                <ListItem
                                     menuText={`${rowData.staff.toUpperCase()}-${rowData.datetime}`}
                                     redirect={() => { }}
                                     title={rowData.staff} />

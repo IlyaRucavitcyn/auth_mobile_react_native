@@ -5,7 +5,7 @@
   "scripts": {
     "ios": "react-native run-ios",
     "android": "react-native run-android",
-    "link":"react-native link",
+    "link": "react-native link",
     "flow": "flow",
     "flow:coverage": "flow coverage"
   },
@@ -15,7 +15,7 @@
     "mobx": "^3.3.1",
     "mobx-react": "^4.3.4",
     "react": "16.0.0-beta.5",
-    "react-native": "^0.49.5",
+    "react-native": "^0.50.3",
     "react-native-datepicker": "^1.6.0",
     "react-native-modal-selector": "0.0.21",
     "react-native-push-notification": "^3.0.1",

@@ -7,7 +7,7 @@ import {
     Button,
     CardSection,
 } from './common';
-import MenuItem from './MenuItem';
+import ListItem from './ListItem';
 import FirebaseClient from '../services/firebase-client';
 import { mapNavigationNaming } from '../navigation/menu-navigator';
 
@@ -39,7 +39,7 @@ class Menu extends Component<any, any> {
                     <ListView
                         dataSource={this.dataSource}
                         renderRow={(rowData) => (
-                            <MenuItem
+                            <ListItem
                                 menuText={rowData}
                                 redirect={() => {
                                     navigate(mapNavigationNaming[rowData]);
