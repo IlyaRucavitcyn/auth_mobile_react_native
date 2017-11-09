@@ -3,10 +3,12 @@
  */
 import type { Node } from 'react';
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import { observer } from 'mobx-react';
 import FirebaseClient from './services/firebase-client';
 import { FIREBASE_CONFIG } from './config/firebase.config';
 import { Spinner } from './components/common';
+import PushNotificationComponent from './components/PushNotification'
 import LoginForm from './components/LoginForm';
 import MenuNavigator from './navigation/menu-navigator';
 import UserInfoState from './state/userinfo.state';
@@ -46,7 +48,7 @@ class App extends Component<PropType, StateType> {
     });
   }
 
-  render(): Node {
+  renderComponentLoggedIn() {
     switch (this.state.loggedIn) {
       case true:
         return <MenuNavigator />;
@@ -55,6 +57,15 @@ class App extends Component<PropType, StateType> {
       default:
         return <Spinner />;
     }
+  }
+
+  render(): Node {
+    return (
+      <View>
+        {this.renderComponentLoggedIn()}
+        <PushNotificationComponent />
+      </View>
+    );
   }
 }
 

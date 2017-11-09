@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
-    <application ....>
+    <application />
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
