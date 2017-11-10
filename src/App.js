@@ -10,8 +10,16 @@ import { Spinner } from './components/common';
 import LoginForm from './components/LoginForm';
 import MenuNavigator from './navigation/menu-navigator';
 import UserInfoState from './state/userinfo.state';
+/** Redux state management */
+// import loggingReducer from './state/reducers/log-in-reducer';
+import { loginAction } from './state/actions/log-in-action';
+import { connect } from 'react-redux';
 
-type PropType = {};
+
+type PropType = {
+  onLogging: any,
+  loggedIn: boolean | null
+};
 type StateType = {
   loggedIn: boolean | null
 };
@@ -19,7 +27,6 @@ type StateType = {
 
 class App extends Component<PropType, StateType> {
 
-  state = { loggedIn: null };
   firebase = FirebaseClient.getClient();
 
   componentWillMount(): void {
@@ -38,16 +45,16 @@ class App extends Component<PropType, StateType> {
             UserInfoState.setReactions();
             return;
           });
-        this.setState({ loggedIn: true });
+        this.props.onLogging(true);
       } else {
         UserInfoState.setFirebaseUserInfo({});
-        this.setState({ loggedIn: false });
+        this.props.onLogging(false);
       }
     });
   }
 
   renderComponentLoggedIn() {
-    switch (this.state.loggedIn) {
+    switch (this.props.loggedIn) {
       case true:
         return <MenuNavigator />;
       case false:
@@ -64,4 +71,20 @@ class App extends Component<PropType, StateType> {
   }
 }
 
-export default observer(App);
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.loggedIn
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogging: loggedIn => {
+      dispatch(loginAction(loggedIn))
+    }
+  }
+}
+
+export default observer(
+  connect(mapStateToProps, mapDispatchToProps)(App)
+);
