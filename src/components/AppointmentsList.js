@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, CardSection, Card } from './common';
-import ListItem from './ListItem';
+import { ListItem } from './common';
 
 
 class AppointmentsList extends Component<any, any> {
@@ -27,7 +27,7 @@ class AppointmentsList extends Component<any, any> {
                             dataSource={this.createDataSource(this.props.userAppointments)}
                             renderRow={(rowData) => (
                                 <ListItem
-                                    menuText={`${rowData.staff.toUpperCase()}-${rowData.datetime}`}
+                                    listItemTextStyle={`${rowData.staff.toUpperCase()}-${rowData.datetime}`}
                                     redirect={() => { }}
                                     title={rowData.staff} />
                             )}
