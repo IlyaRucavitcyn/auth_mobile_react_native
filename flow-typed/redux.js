@@ -1,5 +1,5 @@
 /**@flow */
 
-declare module 'mobx' {
+declare module 'redux' {
     declare module.exports: any;
 }

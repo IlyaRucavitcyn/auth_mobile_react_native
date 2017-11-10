@@ -8,7 +8,7 @@ export interface DatabaseClient {
     pushValue(
         link: string,
         data: UserAppointmentType
-    ): void,
+    ): Promise<any>,
     getData(link: string): Promise<any>
 }
 

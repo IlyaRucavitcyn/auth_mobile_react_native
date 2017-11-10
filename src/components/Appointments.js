@@ -1,11 +1,9 @@
 /**@flow */
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { observer } from 'mobx-react';
 import AppointmentsList from './AppointmentsList';
 import AppointmentDetails from './AppointmentDetails';
 
-@observer
 class Appointments extends Component<any, any> {
     static navigationOptions = {
         title: 'Appointments'

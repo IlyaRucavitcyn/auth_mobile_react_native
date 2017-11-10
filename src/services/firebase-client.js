@@ -1,7 +1,7 @@
 /** @flow */
 import firebase from "firebase";
 import type { 
-        DatabaseClient,
+    DatabaseClient,
         FirebaseConfigType,
         DatabaseEntityUserInfoType,
         DatabaseEntityUserAppointmentsType,
@@ -26,10 +26,10 @@ export default class FirebaseClient implements DatabaseClient {
         return firebase.auth();
     }
     addOrUpdateValue(link: string, data: (DatabaseEntityUserInfoType | DatabaseEntityUserAppointmentsType)): Promise<any> {
-        return   firebase.database().ref(link).update(data);
+        return firebase.database().ref(link).update(data);
     }
-    pushValue(link: string, data: UserAppointmentType) {
-        firebase.database().ref(link).push(data);
+    pushValue(link: string, data: UserAppointmentType): Promise<any> {
+        return firebase.database().ref(link).push(data);
     }
     getData(link: string): Promise<any> {
         return firebase.database().ref(link).once('value')

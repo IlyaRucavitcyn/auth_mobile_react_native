@@ -3,21 +3,25 @@
  */
 import type { Node } from 'react';
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
 import FirebaseClient from './services/firebase-client';
 import { FIREBASE_CONFIG } from './config/firebase.config';
 import { Spinner } from './components/common';
 import LoginForm from './components/LoginForm';
 import MenuNavigator from './navigation/menu-navigator';
-import UserInfoState from './state/userinfo.state';
 /** Redux state management */
 // import loggingReducer from './state/reducers/log-in-reducer';
+import { connect } from 'react-redux';
 import { loginAction } from './state/actions/log-in-action';
 import { firebaseUidAction } from './state/actions/firebase-uid-action';
 import type { UserInfo } from './state/actions/user-info-action';
 import { setUserInfoAction } from './state/actions/user-info-action';
-import { setAvailableStaffAction } from './state/actions/user-staff-available-action';
-import { connect } from 'react-redux';
+import {
+  setAvailableStaffAction
+} from './state/actions/user-staff-available-action';
+import { setUserAppointmentsAction } from './state/actions/user-appointments-action';
+// import type { 
+//   UserAppointmentType
+// } from './services/database-client.interface.flow'
 
 
 type PropType = {
@@ -25,6 +29,7 @@ type PropType = {
   setUid: any,
   setUserInfo: any,
   setStaffAvailable: any,
+  setUserAppointments: any,
   loggedIn: boolean | null,
   uid: string | null
 };
@@ -42,7 +47,6 @@ class App extends Component<PropType, StateType> {
     this.firebase.initialize(FIREBASE_CONFIG);
     this.firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        UserInfoState.setFirebaseUserInfo(user);
         this.props.setUid(user.uid);
         this.firebase.getData(user.uid)
           .then(data => {
@@ -53,11 +57,8 @@ class App extends Component<PropType, StateType> {
                 age: data.age
               });
               this.props.setStaffAvailable(data.staffAvailable);
-              if (data.appointments) {
-                UserInfoState.setUserAppointments(data.appointments)
-              }
+              this.props.setUserAppointments(Object.values(data.appointments));
             }
-            UserInfoState.setReactions();
             return;
           });
         this.props.onLogging(true);
@@ -89,7 +90,8 @@ const mapStateToProps = state => {
   return {
     loggedIn: state.loggedIn,
     uid: state.uid,
-    userInfo: state.userInfo
+    userInfo: state.userInfo,
+    userAppointments: state.userAppointments
   }
 }
 
@@ -106,10 +108,12 @@ const mapDispatchToProps = dispatch => {
     },
     setStaffAvailable: staffAvailable => {
       dispatch(setAvailableStaffAction(staffAvailable))
+    },
+    setUserAppointments: appointments => {
+      dispatch(setUserAppointmentsAction(appointments))
     }
   }
 }
 
-export default observer(
-  connect(mapStateToProps, mapDispatchToProps)(App)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+

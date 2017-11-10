@@ -3,25 +3,28 @@ import React, { Component } from 'react';
 import {
     ListView, View
 } from 'react-native';
-import { observer } from 'mobx-react';
+import { connect } from 'react-redux';
 import { Button, CardSection, Card } from './common';
 import ListItem from './ListItem';
-import UserInfoState from '../state/userinfo.state';
 
-@observer
+
 class AppointmentsList extends Component<any, any> {
+
     dataSource: Array<string>;
-    componentWillMount() {
+
+    createDataSource(source: any[]) {
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        this.dataSource = ds.cloneWithRows(UserInfoState.userAppointments.slice())
+        const dataSource = ds.cloneWithRows(source);
+        return dataSource;
     }
+
     render() {
         return (
             <Card>
                 <View>
                     <CardSection>
                         <ListView
-                            dataSource={this.dataSource}
+                            dataSource={this.createDataSource(this.props.userAppointments)}
                             renderRow={(rowData) => (
                                 <ListItem
                                     menuText={`${rowData.staff.toUpperCase()}-${rowData.datetime}`}
@@ -42,4 +45,10 @@ class AppointmentsList extends Component<any, any> {
     }
 }
 
-export default AppointmentsList;
+const mapStateToProps = state => {
+    return {
+        userAppointments: state.userAppointments
+    }
+}
+
+export default connect(mapStateToProps)(AppointmentsList);

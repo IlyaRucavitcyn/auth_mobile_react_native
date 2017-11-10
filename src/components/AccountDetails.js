@@ -1,6 +1,5 @@
 /**@flow */
 import * as React from 'react';
-import { observer } from 'mobx-react';
 import { connect } from 'react-redux';
 import { menuItemNames } from './Menu';
 import { Card, CardSection, Button, Input, ErrorMessageList } from './common';
@@ -24,7 +23,6 @@ type StateTypes = {
     age: string
 }
 
-@observer
 class AccountDetails extends React.Component<PropTypes, StateTypes> {
     static navigationOptions = {
         title: menuItemNames.ACCOUNT_DETAILS
