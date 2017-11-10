@@ -5,7 +5,7 @@
   "scripts": {
     "ios": "react-native run-ios",
     "android": "react-native run-android",
-    "cache:clear":"react-native start --reset-cache",
+    "cache:clear": "react-native start --reset-cache",
     "link": "react-native link",
     "flow": "flow",
     "flow:coverage": "flow coverage"
@@ -22,7 +22,8 @@
     "react-native-push-notification": "^3.0.1",
     "react-navigation": "^1.0.0-beta.15",
     "react-redux": "^5.0.6",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "@types/react-native": "^0.49.5",

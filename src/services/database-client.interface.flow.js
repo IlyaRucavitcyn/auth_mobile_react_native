@@ -4,7 +4,7 @@ export interface DatabaseClient {
     auth(): any,
     addOrUpdateValue(
         link: string,
-        data: DatabaseEntityUserInfoType): void,
+        data: DatabaseEntityUserInfoType): Promise<any>,
     pushValue(
         link: string,
         data: UserAppointmentType

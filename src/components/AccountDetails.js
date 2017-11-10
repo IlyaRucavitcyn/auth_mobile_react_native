@@ -1,13 +1,20 @@
 /**@flow */
 import * as React from 'react';
 import { observer } from 'mobx-react';
+import { connect } from 'react-redux';
 import { menuItemNames } from './Menu';
 import { Card, CardSection, Button, Input, ErrorMessageList } from './common';
 import ErrorMessageGenerationService from '../services/error-message-generation.service';
 import ValidationService from '../services/validation.service';
-import UserInfoState from '../state/userinfo.state';
+import type { UserInfo } from '../state/actions/user-info-action';
+import { updateUserInfoAction } from '../state/actions/user-info-action';
 
-type PropTypes = {};
+type PropTypes = {
+    userInfo: UserInfo,
+    uid: string,
+    updateUserInfo: any
+};
+
 type StateTypes = {
     componentFormIsValid: boolean,
     componentIsDirty: boolean,
@@ -18,7 +25,7 @@ type StateTypes = {
 }
 
 @observer
-export default class AccountDetails extends React.Component<PropTypes, StateTypes> {
+class AccountDetails extends React.Component<PropTypes, StateTypes> {
     static navigationOptions = {
         title: menuItemNames.ACCOUNT_DETAILS
     };
@@ -33,9 +40,9 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
     }
     syncComponentWithState() {
         this.setState({
-            firstName: UserInfoState.userInfo.firstName,
-            lastName: UserInfoState.userInfo.lastName,
-            age: `${UserInfoState.userInfo.age ? UserInfoState.userInfo.age : ''}`,
+            firstName: this.props.userInfo.firstName,
+            lastName: this.props.userInfo.lastName,
+            age: `${this.props.userInfo.age ? this.props.userInfo.age : ''}`,
         })
     }
     validateFormFields() {
@@ -54,10 +61,10 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
     }
 
     onFormSubmit() {
-        UserInfoState.setNewUserInfo({
+        this.props.updateUserInfo(this.props.uid, {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
-            age: Number(this.state.age),
+            age: Number(this.state.age)
         });
         this.setState({ editMode: false })
     }
@@ -156,3 +163,20 @@ export default class AccountDetails extends React.Component<PropTypes, StateType
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        userInfo: state.userInfo,
+        uid: state.uid
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateUserInfo: (uid, userInfo) => {
+            dispatch(updateUserInfoAction(uid, userInfo))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountDetails);

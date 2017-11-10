@@ -16,8 +16,8 @@ export const MenuNavigator = StackNavigator({
 });
 
 export const mapNavigationNaming = {
-    [menuItemNames.ACCOUNT_DETAILS]: AccountDetails.name,
-    [menuItemNames.APPOINTMENTS]: Appointments.name
+    [menuItemNames.ACCOUNT_DETAILS]: 'AccountDetails',
+    [menuItemNames.APPOINTMENTS]: 'Appointments'
 }
 
 export default MenuNavigator;

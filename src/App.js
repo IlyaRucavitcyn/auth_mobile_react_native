@@ -13,15 +13,24 @@ import UserInfoState from './state/userinfo.state';
 /** Redux state management */
 // import loggingReducer from './state/reducers/log-in-reducer';
 import { loginAction } from './state/actions/log-in-action';
+import { firebaseUidAction } from './state/actions/firebase-uid-action';
+import type { UserInfo } from './state/actions/user-info-action';
+import { setUserInfoAction } from './state/actions/user-info-action';
+import { setAvailableStaffAction } from './state/actions/user-staff-available-action';
 import { connect } from 'react-redux';
 
 
 type PropType = {
   onLogging: any,
-  loggedIn: boolean | null
+  setUid: any,
+  setUserInfo: any,
+  setStaffAvailable: any,
+  loggedIn: boolean | null,
+  uid: string | null
 };
 type StateType = {
-  loggedIn: boolean | null
+  loggedIn: boolean | null,
+  userInfo: UserInfo
 };
 
 
@@ -34,10 +43,16 @@ class App extends Component<PropType, StateType> {
     this.firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         UserInfoState.setFirebaseUserInfo(user);
+        this.props.setUid(user.uid);
         this.firebase.getData(user.uid)
           .then(data => {
             if (data) {
-              UserInfoState.setNewUserInfo(data);
+              this.props.setUserInfo({
+                firstName: data.firstName,
+                lastName: data.lastName,
+                age: data.age
+              });
+              this.props.setStaffAvailable(data.staffAvailable);
               if (data.appointments) {
                 UserInfoState.setUserAppointments(data.appointments)
               }
@@ -47,7 +62,6 @@ class App extends Component<PropType, StateType> {
           });
         this.props.onLogging(true);
       } else {
-        UserInfoState.setFirebaseUserInfo({});
         this.props.onLogging(false);
       }
     });
@@ -73,7 +87,9 @@ class App extends Component<PropType, StateType> {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    uid: state.uid,
+    userInfo: state.userInfo
   }
 }
 
@@ -81,6 +97,15 @@ const mapDispatchToProps = dispatch => {
   return {
     onLogging: loggedIn => {
       dispatch(loginAction(loggedIn))
+    },
+    setUid: uid => {
+      dispatch(firebaseUidAction(uid))
+    },
+    setUserInfo: userInfo => {
+      dispatch(setUserInfoAction(userInfo))
+    },
+    setStaffAvailable: staffAvailable => {
+      dispatch(setAvailableStaffAction(staffAvailable))
     }
   }
 }

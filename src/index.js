@@ -11,4 +11,4 @@ export const Root = () => {
     );
 }
 
-Root.displayName = "Root";
+Root.displayName = Root.name;

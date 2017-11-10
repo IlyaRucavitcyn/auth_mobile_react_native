@@ -1,6 +1,8 @@
+/**@flow */
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { observer } from 'mobx-react';
+import { connect } from 'react-redux';
 import Picker from 'react-native-modal-selector';
 import PushNotification from 'react-native-push-notification';
 import DatePicker from 'react-native-datepicker';
@@ -9,9 +11,15 @@ import { menuItemNames } from './Menu';
 import UserInfoState from '../state/userinfo.state';
 import FirebaseClient from '../services/firebase-client';
 
-
+type PopsType = {
+    staffAvailable: string[]
+}
+type StateType = {
+    datetime: string,
+    staff: string
+}
 @observer
-export default class AppointmentDetails extends Component {
+class AppointmentDetails extends Component<PopsType, StateType> {
     static navigationOptions = {
         title: menuItemNames.APPOINTMENTS
     };
@@ -54,7 +62,7 @@ export default class AppointmentDetails extends Component {
             selectStyle } = styles;
 
 
-        const staffAvailable = UserInfoState.staffAvailable.map(
+        const staffAvailable = this.props.staffAvailable.map(
             (employee, index) => ({
                 index,
                 key: index,
@@ -139,3 +147,11 @@ const styles = {
         borderColor: '#FFF'
     }
 };
+
+const mapStateToProps = state => {
+    return {
+        staffAvailable: state.staffAvailable,
+    }
+}
+
+export default connect(mapStateToProps)(AppointmentDetails);
