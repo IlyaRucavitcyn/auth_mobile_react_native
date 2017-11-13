@@ -1,10 +1,10 @@
 /**@flow */
-import React, { Component } from 'react';
+import React, { Component, Dimensions } from 'react';
 import { Text, View } from 'react-native';
+import { Header, FormLabel, FormInput, Button } from 'react-native-elements';
 import FirebaseClient from '../services/firebase-client';
 import {
-    Button, Card, CardSection,
-    Input, Spinner, Header, ErrorMessageList
+    CardSection, Spinner, ErrorMessageList
 } from './common';
 import ErrorMessageGenerationService from '../services/error-message-generation.service';
 import ValidationService from '../services/validation.service';
@@ -19,7 +19,6 @@ class LoginForm extends Component<any, any> {
         componentFormIsValid: false,
         componentIsDirty: false
     };
-
     onButtonPress() {
         const { email, password } = this.state;
         this.setState({ error: '', loading: true });
@@ -57,28 +56,30 @@ class LoginForm extends Component<any, any> {
         }
         return (
             <Button
+                title='LOG IN'
                 onPress={this.onButtonPress.bind(this)}
-                disabled={!this.state.componentFormIsValid}>
-                Log in
-            </Button>
+                disabled={!this.state.componentFormIsValid} />
         );
     }
 
     render() {
         return (
-            <View>
-                <Header headerText="Authentication" />
-                <Card>
-                    <CardSection>
-                        <Input
-                            placeholder="email@host.com"
-                            label="Email"
-                            value={this.state.email}
-                            onChangeText={email => {
-                                this.setState({ email }, this.onInputChange.bind(this));
-                            }}
-                        />
-                    </CardSection>
+            <View style={{ flex: 1 }}>
+                <Header
+                    backgroundColor="#ccc"
+                    centerComponent={{ text: 'AUTHENTICATION'}}
+                    innerContainerStyles={{fontSize: 15}}
+                />
+                <View style={{ justifyContent: 'center', flex: 1 }}>
+                    <FormLabel>Email</FormLabel>
+                    <FormInput
+                        placeholder="email@host.com"
+                        value={this.state.email}
+                        secureTextEntry={false}
+                        inputStyle={{ color: '#000' }}
+                        onChangeText={email => {
+                            this.setState({ email }, this.onInputChange.bind(this));
+                        }} />
                     <ErrorMessageList
                         messages={[
                             ErrorMessageGenerationService.generateRequireMessage(this.state.email),
@@ -86,17 +87,15 @@ class LoginForm extends Component<any, any> {
                         ]}
                         shouldBeShown={this.state.componentIsDirty} />
 
-                    <CardSection>
-                        <Input
-                            secureTextEntry
-                            placeholder="password"
-                            label="Password"
-                            value={this.state.password}
-                            onChangeText={password => {
-                                this.setState({ password }, this.onInputChange.bind(this));
-                            }}
-                        />
-                    </CardSection>
+                    <FormLabel>Password</FormLabel>
+                    <FormInput
+                        placeholder="password"
+                        value={this.state.password}
+                        secureTextEntry={true}
+                        inputStyle={{ color: '#000' }}
+                        onChangeText={password => {
+                            this.setState({ password }, this.onInputChange.bind(this));
+                        }} />
                     <ErrorMessageList
                         messages={[
                             ErrorMessageGenerationService.generateRequireMessage(this.state.password)
@@ -105,10 +104,8 @@ class LoginForm extends Component<any, any> {
                     <Text style={styles.errorTextStyle}>
                         {this.state.error}
                     </Text>
-                    <CardSection>
-                        {this.renderButton()}
-                    </CardSection>
-                </Card>
+                    {this.renderButton()}
+                </View>
             </View>
         );
     }
