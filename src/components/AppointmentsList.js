@@ -1,46 +1,64 @@
 /**@flow */
 import React, { Component } from 'react';
 import {
-    ListView, View
+    View
 } from 'react-native';
+import { List, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { Button, CardSection, Card } from './common';
 import { ListItem } from './common';
+import { APP_COLORS } from '../config/app-palette';
 
 
 class AppointmentsList extends Component<any, any> {
 
     dataSource: Array<string>;
 
-    createDataSource(source: any[]) {
-        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        const dataSource = ds.cloneWithRows(source);
-        return dataSource;
-    }
-
     render() {
         return (
-            <Card>
-                <View>
-                    <CardSection>
-                        <ListView
-                            dataSource={this.createDataSource(this.props.userAppointments)}
-                            renderRow={(rowData) => (
-                                <ListItem
-                                    listItemTextStyle={`${rowData.staff.toUpperCase()}-${rowData.datetime}`}
-                                    redirect={() => { }}
-                                    title={rowData.staff} />
-                            )}
+            <View>
+                <List
+                    containerStyle={{
+                        marginBottom: 20,
+                        width: '90%',
+                        alignSelf: 'center',
+                        borderColor: APP_COLORS.UNDERLAY_COLOR,
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }}
+                >
+                    {this.props.userAppointments.map((rowData, i) => (
+                        <ListItem
+                            key={i}
+                            listItemText={`${rowData.staff.toUpperCase()}-${rowData.datetime}`}
+                            redirect={() => { }}
+                            title={`${rowData.staff.toUpperCase()}/${rowData.datetime}`}
+                            leftIcon={
+                                {
+                                    name: 'arrow-right-circle',
+                                    type: 'simple-line-icon'
+                                }
+                            }
                         />
-                    </CardSection>
-                    <CardSection>
-                        <Button
-                            onPress={this.props.onButtonPressed}>
-                            Create New Appointment
-                        </Button>
-                    </CardSection>
-                </View>
-            </Card>
+                    ))
+                    }
+                </List>
+
+                <Button
+                    onPress={this.props.onButtonPressed}
+                    title="Create New Appointment"
+                    backgroundColor={APP_COLORS.MAIN_THEME}
+                    icon={
+                        {
+                            name: 'ios-checkmark-circle-outline',
+                            type: 'ionicon',
+                            size: 20
+                        }
+                    }
+                    borderRadius={5}
+                    fontWeight="bold"
+                />
+            </View>
+
         );
     }
 }

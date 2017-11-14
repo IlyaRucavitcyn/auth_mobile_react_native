@@ -3,10 +3,15 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import AppointmentsList from './AppointmentsList';
 import AppointmentDetails from './AppointmentDetails';
+import { APP_COLORS } from '../config/app-palette';
 
 class Appointments extends Component<any, any> {
     static navigationOptions = {
-        title: 'Appointments'
+        title: 'APPOINTMENTS',
+        headerStyle: {
+            backgroundColor: APP_COLORS.MAIN_THEME,
+        },
+        headerTintColor: APP_COLORS.WHITE
     };
 
     state = {
@@ -31,7 +36,7 @@ class Appointments extends Component<any, any> {
 
     render() {
         return (
-            <View>
+            <View style={{ backgroundColor: APP_COLORS.WHITE, flex: 1 }}>
                 {this.componentToRender()}
             </View>
         );

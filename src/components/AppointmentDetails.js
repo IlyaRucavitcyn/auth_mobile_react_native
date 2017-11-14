@@ -1,14 +1,15 @@
 /**@flow */
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import Picker from 'react-native-modal-selector';
 import PushNotification from 'react-native-push-notification';
 import DatePicker from 'react-native-datepicker';
-import { Card, CardSection, Button } from './common';
 import { menuItemNames } from './Menu';
 import { addUserAppointmentsAction } from '../state/actions/user-appointments-action';
 import FirebaseClient from '../services/firebase-client';
+import { APP_COLORS } from '../config/app-palette';
 
 type PopsType = {
     staffAvailable: string[],
@@ -21,9 +22,6 @@ type StateType = {
     staff: string
 }
 class AppointmentDetails extends Component<PopsType, StateType> {
-    static navigationOptions = {
-        title: menuItemNames.APPOINTMENTS
-    };
     firebase = FirebaseClient.getClient();
     state = {
         datetime: '',
@@ -58,7 +56,6 @@ class AppointmentDetails extends Component<PopsType, StateType> {
     }
     render() {
         const { labelStyle,
-            containerStyle,
             dateStyle,
             selectStyle } = styles;
 
@@ -73,68 +70,99 @@ class AppointmentDetails extends Component<PopsType, StateType> {
         )
 
         return (
-            <Card>
-                <CardSection>
+            <View
+                style={{
+                    flex:1,
+                    justifyContent: 'center',
+                    paddingLeft: 10,
+                    paddingRight: 10
+                }}>
+                <View style={{
+                    flex: 1,
+                    marginTop: 20
+                }}>
                     <Picker
                         data={staffAvailable}
                         initValue="Please select the specialist"
                         style={selectStyle}
                         cancelText={`Cancel`}
                         onChange={(staff => this.setState({ staff: staff.value }))} />
-                </CardSection>
-                <CardSection>
-                    <View style={containerStyle}>
-                        <Text style={labelStyle}>Date</Text>
-                        <DatePicker
-                            style={dateStyle}
-                            date={this.state.datetime}
-                            mode="datetime"
-                            placeholder="select date"
-                            format="'MMMM Do YYYY, h:mm:ss a'"
-                            confirmBtnText="Confirm"
-                            cancelBtnText="Cancel"
-                            customStyles={{
-                                dateIcon: {
-                                    position: 'absolute',
-                                    right: 0,
-                                    top: 4,
-                                    marginRight: 0
-                                },
-                                dateInput: {
-                                    marginRight: 36,
-                                    borderColor: '#fff'
-                                }
+                </View>
+                <View
+                    style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-around'
+                    }}>
+                    <Text style={labelStyle}>Date</Text>
+                    <DatePicker
+                        style={dateStyle}
+                        date={this.state.datetime}
+                        mode="datetime"
+                        placeholder="select date"
+                        format="'MMMM Do YYYY, h:mm:ss a'"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            dateIcon: {
+                                position: 'absolute',
+                                right: 0,
+                                top: 4,
+                                marginRight: 0
+                            },
+                            dateInput: {
+                                marginRight: 36,
+                                borderColor: '#fff'
+                            }
+                        }}
+                        onDateChange={datetime => this.setState({ datetime })}
+                    />
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'center', flex: 1 }}>
+                    <View style={{ flex: 1 }}>
+                        <Button
+                            disabled={!this.state.datetime || !this.state.staff}
+                            onPress={() => {
+                                this.onAppointmentSaved();
+                                this.props.onButtonPressed()
                             }}
-                            onDateChange={datetime => this.setState({ datetime })}
-                        />
+                            title="Save"
+                            backgroundColor={APP_COLORS.MAIN_THEME}
+                            icon={
+                                {
+                                    name: 'ios-checkmark-circle-outline',
+                                    type: 'ionicon',
+                                    size: 20
+                                }
+                            }
+                            borderRadius={5}
+                            fontWeight="bold"
+                            disabledStyle={
+                                { backgroundColor: APP_COLORS.MAIN_THEME_DISABLED }
+                            } />
                     </View>
-                </CardSection>
-                <CardSection>
-                    <Button
-                        disabled={!this.state.datetime || !this.state.staff}
-                        onPress={() => {
-                            this.onAppointmentSaved();
-                            this.props.onButtonPressed()
-                        }}>
-                        Save
-                    </Button>
-                    <Button
-                        onPress={this.props.onButtonPressed.bind(this)}>
-                        Cancel
-                    </Button>
-                </CardSection>
-            </Card >
+                    <View style={{ flex: 1 }}>
+                        <Button
+                            onPress={this.props.onButtonPressed.bind(this)}
+                            title="Cancel"
+                            backgroundColor={APP_COLORS.RED}
+                            icon={
+                                {
+                                    name: 'ios-close-circle-outline',
+                                    type: 'ionicon',
+                                    size: 20
+                                }
+                            }
+                            borderRadius={5}
+                            fontWeight="bold" />
+                    </View>
+                </View>
+            </View >
         );
     }
 }
 
 const styles = {
-    containerStyle: {
-        height: 40,
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
     labelStyle: {
         fontSize: 18,
         paddingLeft: 20,
@@ -145,7 +173,7 @@ const styles = {
     },
     selectStyle: {
         flex: 1,
-        borderColor: '#FFF'
+        borderColor: APP_COLORS.WHITE
     }
 };
 
