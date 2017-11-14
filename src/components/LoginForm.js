@@ -1,10 +1,10 @@
 /**@flow */
-import React, { Component, Dimensions } from 'react';
-import { Text, View, StatusBar } from 'react-native';
-import { Header, FormLabel, FormInput, Button } from 'react-native-elements';
+import React, { Component } from 'react';
+import { Text, View } from 'react-native';
+import { FormLabel, FormInput, Button } from 'react-native-elements';
 import FirebaseClient from '../services/firebase-client';
 import {
-    CardSection, Spinner, ErrorMessageList
+    Spinner, ErrorMessageList, Head
 } from './common';
 import ErrorMessageGenerationService from '../services/error-message-generation.service';
 import ValidationService from '../services/validation.service';
@@ -61,6 +61,11 @@ class LoginForm extends Component<any, any> {
                 onPress={this.onButtonPress.bind(this)}
                 disabled={!this.state.componentFormIsValid}
                 backgroundColor={APP_COLORS.MAIN_THEME}
+                icon={
+                    { name: 'login', type: 'simple-line-icon' }
+                }
+                borderRadius={5}
+                fontWeight="bold"
                 disabledStyle={
                     { backgroundColor: APP_COLORS.MAIN_THEME_DISABLED }
                 }
@@ -71,17 +76,8 @@ class LoginForm extends Component<any, any> {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <StatusBar
-                    barStyle="light-content"
-                />
-                <Header
-                    backgroundColor="#00668B"
-                    centerComponent={
-                        {
-                            text: 'AUTHENTICATION',
-                            style: { color: APP_COLORS.WHITE, fontSize: 20 }
-                        }
-                    }
+                <Head
+                    headerText="AUTHENTICATION"
                 />
                 <View style={{ justifyContent: 'center', flex: 1 }}>
                     <FormLabel>Email</FormLabel>

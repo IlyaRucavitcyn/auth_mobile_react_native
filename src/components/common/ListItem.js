@@ -1,46 +1,25 @@
 /**@flow */
 import React, { Component } from 'react';
-import {
-    Text, View,
-    TouchableHighlight
-} from 'react-native';
-
-const styles = {
-    listItemContainerStyle: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    listItemTextStyle: {
-        fontSize: 15,
-        fontWeight: 'bold'
-    }
-};
-
+import { ListItem as ListElement } from 'react-native-elements';
+import { APP_COLORS } from '../../config/app-palette';
 
 type PropType = {
-    listItemTextStyle: string,
+    listItemText: string,
     redirect: any,
-    title: string
+    title: string,
+    leftIcon: any
 };
 
 class ListItem extends Component<PropType, any> {
     render() {
-        const {
-            listItemContainerStyle,
-            listItemTextStyle } = styles;
         return (
-            <TouchableHighlight
-                underlayColor="#E0E0DF"
+            <ListElement
+                containerStyle={{ borderWidth: 0 }}
+                underlayColor={APP_COLORS.UNDERLAY_COLOR}
                 onPress={this.props.redirect}
-                title={this.props.title}>
-                <View style={listItemContainerStyle}>
-                    <Text style={listItemTextStyle}>
-                        {this.props.listItemTextStyle}
-                    </Text>
-                </View>
-            </TouchableHighlight>
+                title={this.props.title}
+                leftIcon={this.props.leftIcon}
+            />
         );
     }
 }
