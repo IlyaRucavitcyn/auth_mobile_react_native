@@ -1,12 +1,15 @@
 /**@flow */
 import * as React from 'react';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
+import { FormLabel, FormInput, Button } from 'react-native-elements';
 import { menuItemNames } from './Menu';
-import { Card, CardSection, Button, Input, ErrorMessageList } from './common';
+import { ErrorMessageList } from './common';
 import ErrorMessageGenerationService from '../services/error-message-generation.service';
 import ValidationService from '../services/validation.service';
 import type { UserInfo } from '../state/actions/user-info-action';
 import { updateUserInfoAction } from '../state/actions/user-info-action';
+import { APP_COLORS } from '../config/app-palette';
 
 type PropTypes = {
     userInfo: UserInfo,
@@ -25,7 +28,11 @@ type StateTypes = {
 
 class AccountDetails extends React.Component<PropTypes, StateTypes> {
     static navigationOptions = {
-        title: menuItemNames.ACCOUNT_DETAILS
+        title: menuItemNames.ACCOUNT_DETAILS.toUpperCase(),
+        headerStyle: {
+            backgroundColor: APP_COLORS.MAIN_THEME,
+        },
+        headerTintColor: APP_COLORS.WHITE
     };
     state: StateTypes;
 
@@ -75,81 +82,114 @@ class AccountDetails extends React.Component<PropTypes, StateTypes> {
     renderButtonBasedOnEditMode(): React.Node {
         if (this.state.editMode) {
             return (
-                <CardSection>
-                    <Button
-                        onPress={this.onFormSubmit.bind(this)}
-                        disabled={!this.state.componentFormIsValid}>
-                        Save changes
-                        </Button>
-                    <Button
-                        onPress={this.onFormCancelSubmit.bind(this)}>
-                        Cancel
-                    </Button>
-                </CardSection>
+                <View style={{
+                    flexDirection: 'row',
+                    flex: 1,
+                    justifyContent: 'space-around',
+                    marginTop: 30
+                }}>
+                    <View style={{ flex: 1 }}>
+                        <Button
+                            onPress={this.onFormSubmit.bind(this)}
+                            disabled={!this.state.componentFormIsValid}
+                            title="Save changes"
+                            backgroundColor={APP_COLORS.MAIN_THEME}
+                            icon={
+                                {
+                                    name: 'ios-checkmark-circle-outline',
+                                    type: 'ionicon',
+                                    size: 20
+                                }
+                            }
+                            borderRadius={5}
+                            fontWeight="bold"
+                            disabledStyle={
+                                { backgroundColor: APP_COLORS.MAIN_THEME_DISABLED }
+                            }
+                        />
+                    </View>
+                    <View style={{ flex: 1 }}>
+                        <Button
+                            onPress={this.onFormCancelSubmit.bind(this)}
+                            title="Cancel"
+                            backgroundColor={APP_COLORS.RED}
+                            icon={
+                                {
+                                    name: 'ios-close-circle-outline',
+                                    type: 'ionicon',
+                                    size: 20
+                                }
+                            }
+                            borderRadius={5}
+                            fontWeight="bold" />
+                    </View>
+                </View>
             );
         }
         return (
-            <CardSection>
+            <View style={{ marginTop: 30 }}>
                 <Button
-                    onPress={() => { this.setState({ editMode: true }) }}>
-                    Edit profile
-                </Button>
-            </CardSection>
+                    onPress={() => { this.setState({ editMode: true }) }}
+                    title="Edit profile"
+                    backgroundColor={APP_COLORS.MAIN_THEME}
+                    icon={
+                        {
+                            name: 'edit',
+                            type: 'entypo',
+                            size: 20
+                        }
+                    }
+                    borderRadius={5}
+                    fontWeight="bold"
+                />
+            </View>
         );
     }
 
     render() {
         return (
-            <Card>
-                <CardSection>
-                    <Input
-                        placeholder="Enter Your Firstname"
-                        label="Firstname"
-                        value={this.state.firstName}
-                        editable={this.state.editMode}
-                        onChangeText={firstName => {
-                            this.setState({ firstName }, () => {
-                                this.onInputChange();
-                            });
-                        }}
-                    />
-                </CardSection>
+            <View style={{ flex: 1, backgroundColor: APP_COLORS.WHITE }}>
+                <FormLabel>Firstname</FormLabel>
+                <FormInput
+                    placeholder="Enter Your Firstname"
+                    value={this.state.firstName}
+                    editable={this.state.editMode}
+                    inputStyle={{ color: APP_COLORS.BLACK }}
+                    onChangeText={firstName => {
+                        this.setState({ firstName }, this.onInputChange.bind(this));
+                    }}
+                />
                 <ErrorMessageList
                     messages={[
                         ErrorMessageGenerationService.generateRequireMessage(this.state.firstName)
                     ]}
                     shouldBeShown={this.state.componentIsDirty} />
-                <CardSection>
-                    <Input
-                        placeholder="Enter Your Lastname"
-                        label="Lastname"
-                        value={this.state.lastName}
-                        editable={this.state.editMode}
-                        onChangeText={lastName => {
-                            this.setState({ lastName }, () => {
-                                this.onInputChange();
-                            })
-                        }}
-                    />
-                </CardSection>
+                <FormLabel>Lastname</FormLabel>
+                <FormInput
+                    placeholder="Enter Your Lastname"
+                    value={this.state.lastName}
+                    editable={this.state.editMode}
+                    inputStyle={{ color: APP_COLORS.BLACK }}
+                    onChangeText={lastName => {
+                        this.setState({ lastName }, this.onInputChange.bind(this));
+                    }}
+                />
                 <ErrorMessageList
                     messages={[
                         ErrorMessageGenerationService.generateRequireMessage(this.state.lastName)
                     ]}
                     shouldBeShown={this.state.componentIsDirty} />
-                <CardSection>
-                    <Input
-                        placeholder="Enter Your Age"
-                        label="Age"
-                        value={this.state.age}
-                        editable={this.state.editMode}
-                        onChangeText={age => {
-                            this.setState({ age }, () => {
-                                this.onInputChange();
-                            });
-                        }}
-                    />
-                </CardSection>
+                <FormLabel>Age</FormLabel>
+                <FormInput
+                    placeholder="Enter Your Age"
+                    label="Age"
+                    value={this.state.age}
+                    inputStyle={{ color: APP_COLORS.BLACK }}
+                    editable={this.state.editMode}
+                    onChangeText={age => {
+                        this.setState({ age }, this.onInputChange.bind(this));
+                    }}
+                />
                 <ErrorMessageList
                     messages={[
                         ErrorMessageGenerationService.generateRequireMessage(this.state.age),
@@ -157,7 +197,7 @@ class AccountDetails extends React.Component<PropTypes, StateTypes> {
                     ]}
                     shouldBeShown={this.state.componentIsDirty} />
                 {this.renderButtonBasedOnEditMode()}
-            </Card>
+            </View>
         );
     }
 }
