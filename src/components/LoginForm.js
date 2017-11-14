@@ -1,6 +1,6 @@
 /**@flow */
 import React, { Component, Dimensions } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StatusBar } from 'react-native';
 import { Header, FormLabel, FormInput, Button } from 'react-native-elements';
 import FirebaseClient from '../services/firebase-client';
 import {
@@ -8,6 +8,7 @@ import {
 } from './common';
 import ErrorMessageGenerationService from '../services/error-message-generation.service';
 import ValidationService from '../services/validation.service';
+import { APP_COLORS } from '../config/app-palette';
 
 class LoginForm extends Component<any, any> {
     firebase = FirebaseClient.getClient();
@@ -58,17 +59,29 @@ class LoginForm extends Component<any, any> {
             <Button
                 title='LOG IN'
                 onPress={this.onButtonPress.bind(this)}
-                disabled={!this.state.componentFormIsValid} />
+                disabled={!this.state.componentFormIsValid}
+                backgroundColor={APP_COLORS.MAIN_THEME}
+                disabledStyle={
+                    { backgroundColor: APP_COLORS.MAIN_THEME_DISABLED }
+                }
+            />
         );
     }
 
     render() {
         return (
             <View style={{ flex: 1 }}>
+                <StatusBar
+                    barStyle="light-content"
+                />
                 <Header
-                    backgroundColor="#ccc"
-                    centerComponent={{ text: 'AUTHENTICATION'}}
-                    innerContainerStyles={{fontSize: 15}}
+                    backgroundColor="#00668B"
+                    centerComponent={
+                        {
+                            text: 'AUTHENTICATION',
+                            style: { color: APP_COLORS.WHITE, fontSize: 20 }
+                        }
+                    }
                 />
                 <View style={{ justifyContent: 'center', flex: 1 }}>
                     <FormLabel>Email</FormLabel>
@@ -76,7 +89,7 @@ class LoginForm extends Component<any, any> {
                         placeholder="email@host.com"
                         value={this.state.email}
                         secureTextEntry={false}
-                        inputStyle={{ color: '#000' }}
+                        inputStyle={{ color: APP_COLORS.BLACK }}
                         onChangeText={email => {
                             this.setState({ email }, this.onInputChange.bind(this));
                         }} />
@@ -92,7 +105,7 @@ class LoginForm extends Component<any, any> {
                         placeholder="password"
                         value={this.state.password}
                         secureTextEntry={true}
-                        inputStyle={{ color: '#000' }}
+                        inputStyle={{ color: APP_COLORS.BLACK }}
                         onChangeText={password => {
                             this.setState({ password }, this.onInputChange.bind(this));
                         }} />
@@ -115,7 +128,7 @@ const styles = {
     errorTextStyle: {
         fontSize: 20,
         alignSelf: 'center',
-        color: 'red'
+        color: APP_COLORS.RED
     }
 };
 

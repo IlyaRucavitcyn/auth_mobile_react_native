@@ -1,13 +1,10 @@
 /**@flow */
 import React, { Component } from 'react';
 import {
-    ListView, View
+    View
 } from 'react-native';
-import {
-    Button,
-    CardSection,
-} from './common';
-import {ListItem} from './common';
+import { List, Button } from 'react-native-elements';
+import { ListItem } from './common';
 import FirebaseClient from '../services/firebase-client';
 import { mapNavigationNaming } from '../navigation/menu-navigator';
 
@@ -25,8 +22,7 @@ class Menu extends Component<any, any> {
     dataSource: Array<string>;
 
     componentWillMount() {
-        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        this.dataSource = ds.cloneWithRows([...Object.keys(mapNavigationNaming)])
+        this.dataSource = Object.keys(mapNavigationNaming);
     }
 
     render() {
@@ -34,27 +30,24 @@ class Menu extends Component<any, any> {
         const { navigate } = this.props.navigation;
 
         return (
-            <View>
-                <CardSection>
-                    <ListView
-                        dataSource={this.dataSource}
-                        renderRow={(rowData) => (
-                            <ListItem
-                                listItemTextStyle={rowData}
-                                redirect={() => {
-                                    navigate(mapNavigationNaming[rowData]);
-                                }}
-                                title={rowData} />
-                        )}
-                    />
-                </CardSection>
-                <CardSection>
-                    <Button onPress={() => this.firebase.auth().signOut()}>
-                        LogOut
-                    </Button>
-                </CardSection>
+            <View style={{ flex: 1 }}>
+                <List>
+                    {this.dataSource.map((rowData, i) => (
+                        <ListItem
+                            key={i}
+                            listItemTextStyle={rowData}
+                            redirect={() => {
+                                navigate(mapNavigationNaming[rowData]);
+                            }}
+                            title={rowData} />
+                    ))
+                    }
+                </List>
 
-            </View>
+                <Button
+                    onPress={() => this.firebase.auth().signOut()}
+                    title="LOG OUT" />
+            </View >
         );
     }
 }
