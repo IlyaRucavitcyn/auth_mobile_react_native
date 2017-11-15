@@ -1,7 +1,7 @@
 /**@flow */
 import React, { Component } from 'react';
 import {
-    View
+    View, ScrollView
 } from 'react-native';
 import { List, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -15,7 +15,7 @@ class AppointmentsList extends Component<any, any> {
 
     render() {
         return (
-            <View>
+            <ScrollView>
                 <List
                     containerStyle={{
                         marginBottom: 20,
@@ -57,7 +57,7 @@ class AppointmentsList extends Component<any, any> {
                     borderRadius={5}
                     fontWeight="bold"
                 />
-            </View>
+            </ScrollView>
 
         );
     }

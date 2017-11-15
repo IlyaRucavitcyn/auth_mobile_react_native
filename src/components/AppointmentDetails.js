@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import Picker from 'react-native-modal-selector';
+import ModalSelector from 'react-native-modal-selector';
 import PushNotification from 'react-native-push-notification';
 import DatePicker from 'react-native-datepicker';
 import { menuItemNames } from './Menu';
@@ -72,16 +72,16 @@ class AppointmentDetails extends Component<PopsType, StateType> {
         return (
             <View
                 style={{
-                    flex:1,
+                    height:300,
                     justifyContent: 'center',
                     paddingLeft: 10,
                     paddingRight: 10
                 }}>
                 <View style={{
                     flex: 1,
-                    marginTop: 20
+                    padding: 20
                 }}>
-                    <Picker
+                    <ModalSelector
                         data={staffAvailable}
                         initValue="Please select the specialist"
                         style={selectStyle}
@@ -94,25 +94,25 @@ class AppointmentDetails extends Component<PopsType, StateType> {
                         flexDirection: 'row',
                         justifyContent: 'space-around'
                     }}>
-                    <Text style={labelStyle}>Date</Text>
                     <DatePicker
                         style={dateStyle}
                         date={this.state.datetime}
                         mode="datetime"
-                        placeholder="select date"
+                        placeholder="Select date"
                         format="'MMMM Do YYYY, h:mm:ss a'"
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         customStyles={{
                             dateIcon: {
                                 position: 'absolute',
-                                right: 0,
+                                right: 10,
                                 top: 4,
                                 marginRight: 0
                             },
                             dateInput: {
                                 marginRight: 36,
-                                borderColor: '#fff'
+                                borderColor: '#fff',
+                                fontSize:20
                             }
                         }}
                         onDateChange={datetime => this.setState({ datetime })}
@@ -165,14 +165,20 @@ class AppointmentDetails extends Component<PopsType, StateType> {
 const styles = {
     labelStyle: {
         fontSize: 18,
+        fontWeight:'bold',
+        textAlign:'center',
+        textAlignVerical:'center',
         paddingLeft: 20,
-        flex: 1
+        paddingTop:20,
+        flex: 1,
+        alignContent:'center'
     },
     dateStyle: {
-        flex: 2,
+        flex: 4,
     },
     selectStyle: {
         flex: 1,
+        alignItems:'center',
         borderColor: APP_COLORS.WHITE
     }
 };
