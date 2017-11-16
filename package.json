@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "test":"jest",
     "ios": "react-native run-ios",
     "android": "react-native run-android",
     "cache:clear": "react-native start --reset-cache",
@@ -44,6 +45,10 @@
     "react-test-renderer": "16.0.0-beta.5"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "collectCoverage": true,
+    "coverageDirectory":"coverage",
+    "collectCoverageFrom" : ["src/**/*.{js,jsx}"],
+    "testMatch":["**/?(*.)spec.js?(x)"]
   }
 }
