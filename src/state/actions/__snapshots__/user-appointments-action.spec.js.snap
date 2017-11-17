@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user appointments action creator testing addUserAppointmentsAction method dispatch should be called when firebase pushValue resolved 1`] = `
+Object {
+  "payload": Array [
+    "test_1",
+    "test_2",
+  ],
+  "type": "add-user-appointments",
+}
+`;
+
+exports[`user appointments action creator testing setUserAppointmentsAction method should return action with right type and payload 1`] = `
+Object {
+  "payload": Array [
+    "test_1",
+    "test_2",
+  ],
+  "type": "set-user-appointments",
+}
+`;

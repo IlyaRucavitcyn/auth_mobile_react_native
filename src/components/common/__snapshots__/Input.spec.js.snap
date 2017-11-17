@@ -1,0 +1,447 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input element testing passes props correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Input
+    editable={true}
+    label="New test label"
+    onChangeText={[Function]}
+    placeholder="New test placeholder"
+    secureTextEntry={true}
+    value=""
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "children": Array [
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "flex": 1,
+              "fontSize": 18,
+              "paddingLeft": 20,
+            }
+          }
+        >
+          New test label
+        </Text>,
+        <TextInput
+          allowFontScaling={true}
+          autoCorrect={false}
+          editable={true}
+          onChangeText={[Function]}
+          placeholder="New test placeholder"
+          secureTextEntry={true}
+          style={
+            Object {
+              "color": "#000",
+              "flex": 2,
+              "fontSize": 18,
+              "lineHeight": 23,
+              "paddingLeft": 5,
+              "paddingRight": 5,
+            }
+          }
+          value=""
+        />,
+      ],
+      "style": Object {
+        "alignItems": "center",
+        "flex": 1,
+        "flexDirection": "row",
+        "height": 40,
+      },
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "accessible": true,
+          "allowFontScaling": true,
+          "children": "New test label",
+          "ellipsizeMode": "tail",
+          "style": Object {
+            "flex": 1,
+            "fontSize": 18,
+            "paddingLeft": 20,
+          },
+        },
+        "ref": null,
+        "rendered": "New test label",
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "allowFontScaling": true,
+          "autoCorrect": false,
+          "editable": true,
+          "onChangeText": [Function],
+          "placeholder": "New test placeholder",
+          "secureTextEntry": true,
+          "style": Object {
+            "color": "#000",
+            "flex": 2,
+            "fontSize": 18,
+            "lineHeight": 23,
+            "paddingLeft": 5,
+            "paddingRight": 5,
+          },
+          "value": "",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": Array [
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "flex": 1,
+                "fontSize": 18,
+                "paddingLeft": 20,
+              }
+            }
+          >
+            New test label
+          </Text>,
+          <TextInput
+            allowFontScaling={true}
+            autoCorrect={false}
+            editable={true}
+            onChangeText={[Function]}
+            placeholder="New test placeholder"
+            secureTextEntry={true}
+            style={
+              Object {
+                "color": "#000",
+                "flex": 2,
+                "fontSize": 18,
+                "lineHeight": 23,
+                "paddingLeft": 5,
+                "paddingRight": 5,
+              }
+            }
+            value=""
+          />,
+        ],
+        "style": Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "height": 40,
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "accessible": true,
+            "allowFontScaling": true,
+            "children": "New test label",
+            "ellipsizeMode": "tail",
+            "style": Object {
+              "flex": 1,
+              "fontSize": 18,
+              "paddingLeft": 20,
+            },
+          },
+          "ref": null,
+          "rendered": "New test label",
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "allowFontScaling": true,
+            "autoCorrect": false,
+            "editable": true,
+            "onChangeText": [Function],
+            "placeholder": "New test placeholder",
+            "secureTextEntry": true,
+            "style": Object {
+              "color": "#000",
+              "flex": 2,
+              "fontSize": 18,
+              "lineHeight": 23,
+              "paddingLeft": 5,
+              "paddingRight": 5,
+            },
+            "value": "",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`Input element testing renders snapshot correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Input
+    editable={null}
+    label="Testing label"
+    onChangeText={[Function]}
+    placeholder="Testing placeholder"
+    secureTextEntry={null}
+    value=""
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "children": Array [
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "flex": 1,
+              "fontSize": 18,
+              "paddingLeft": 20,
+            }
+          }
+        >
+          Testing label
+        </Text>,
+        <TextInput
+          allowFontScaling={true}
+          autoCorrect={false}
+          editable={null}
+          onChangeText={[Function]}
+          placeholder="Testing placeholder"
+          secureTextEntry={null}
+          style={
+            Object {
+              "color": "#000",
+              "flex": 2,
+              "fontSize": 18,
+              "lineHeight": 23,
+              "paddingLeft": 5,
+              "paddingRight": 5,
+            }
+          }
+          value=""
+        />,
+      ],
+      "style": Object {
+        "alignItems": "center",
+        "flex": 1,
+        "flexDirection": "row",
+        "height": 40,
+      },
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "accessible": true,
+          "allowFontScaling": true,
+          "children": "Testing label",
+          "ellipsizeMode": "tail",
+          "style": Object {
+            "flex": 1,
+            "fontSize": 18,
+            "paddingLeft": 20,
+          },
+        },
+        "ref": null,
+        "rendered": "Testing label",
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "allowFontScaling": true,
+          "autoCorrect": false,
+          "editable": null,
+          "onChangeText": [Function],
+          "placeholder": "Testing placeholder",
+          "secureTextEntry": null,
+          "style": Object {
+            "color": "#000",
+            "flex": 2,
+            "fontSize": 18,
+            "lineHeight": 23,
+            "paddingLeft": 5,
+            "paddingRight": 5,
+          },
+          "value": "",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": Array [
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "flex": 1,
+                "fontSize": 18,
+                "paddingLeft": 20,
+              }
+            }
+          >
+            Testing label
+          </Text>,
+          <TextInput
+            allowFontScaling={true}
+            autoCorrect={false}
+            editable={null}
+            onChangeText={[Function]}
+            placeholder="Testing placeholder"
+            secureTextEntry={null}
+            style={
+              Object {
+                "color": "#000",
+                "flex": 2,
+                "fontSize": 18,
+                "lineHeight": 23,
+                "paddingLeft": 5,
+                "paddingRight": 5,
+              }
+            }
+            value=""
+          />,
+        ],
+        "style": Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "height": 40,
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "accessible": true,
+            "allowFontScaling": true,
+            "children": "Testing label",
+            "ellipsizeMode": "tail",
+            "style": Object {
+              "flex": 1,
+              "fontSize": 18,
+              "paddingLeft": 20,
+            },
+          },
+          "ref": null,
+          "rendered": "Testing label",
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "allowFontScaling": true,
+            "autoCorrect": false,
+            "editable": null,
+            "onChangeText": [Function],
+            "placeholder": "Testing placeholder",
+            "secureTextEntry": null,
+            "style": Object {
+              "color": "#000",
+              "flex": 2,
+              "fontSize": 18,
+              "lineHeight": 23,
+              "paddingLeft": 5,
+              "paddingRight": 5,
+            },
+            "value": "",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
