@@ -33,6 +33,6 @@ deploy:
   api-key: $API_KEY
   app-file: android/app/build/outputs/apk/app_release.apk
   keystore-file: android/app/my-release-key.keystore
-  storepass: 123456
-  alias: my-key-alias
+  storepass: $KEY_STORE_PASS
+  alias: $KEY_STORE_ALIAS
   alias: android
