@@ -10,6 +10,7 @@
     "cache:clear": "react-native start --reset-cache",
     "link": "react-native link",
     "flow": "flow",
+    "lint":"eslint src/**",
     "flow:coverage": "flow coverage"
   },
   "dependencies": {
