@@ -4,15 +4,18 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "test:snap":"jest -u",
+    "test:snap": "jest -u",
     "ios": "react-native run-ios",
     "android": "react-native run-android",
     "cache:clear": "react-native start --reset-cache",
-    "link": "react-native link react-native-vector-icons",
+    "link": "react-native link",
     "flow": "flow",
     "flow:coverage": "flow coverage"
   },
   "dependencies": {
+    "appcenter": "^1.0.1",
+    "appcenter-analytics": "^1.0.1",
+    "appcenter-crashes": "^1.0.1",
     "axios": "^0.17.0",
     "firebase": "^4.6.0",
     "mobx": "^3.3.1",
