@@ -27,12 +27,12 @@ matrix:
           - extra-google-m2repository
           - addon-google_apis-google-16
       script:
-        - cd android && ./gradlew assembleDebug && ./gradlew assembleRelease
+        - cd android && ./gradlew assembleRelease
 deploy:
   skip_cleanup: true
   provider: testfairy
   api-key: $API_KEY
-  app-file: android/app/build/outputs/apk/app_release.apk
+  app-file: app/build/outputs/apk/app_release.apk
   keystore-file: android/app/my-release-key.keystore
   storepass: $KEY_STORE_PASS
   alias: $KEY_STORE_ALIAS
