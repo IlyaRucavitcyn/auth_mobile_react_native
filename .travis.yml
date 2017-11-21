@@ -29,12 +29,13 @@ matrix:
       script:
         - cd android && ./gradlew assembleRelease
         - echo "HELLO"
-        - echo $TRAVIS_BUILD_DIR
+        - cd $TRAVIS_BUILD_DIR
+        - ls -la
 deploy:
   skip_cleanup: true
   provider: testfairy
   api-key: $API_KEY
-  app-file: bin/app-release.apk
+  app-file: $TRAVIS_BUILD_DIR/app-release.apk
   keystore-file: $TRAVIS_BUILD_DIR/android/app/my-release-key.keystore
   storepass: $KEY_STORE_PASS
   alias: $KEY_STORE_ALIAS
