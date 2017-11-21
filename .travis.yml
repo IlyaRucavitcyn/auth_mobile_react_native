@@ -3,8 +3,8 @@ node_js: "node"
 install:
   - npm install
 script:
- - npm test
- - npm run flow
+  - npm test
+  - npm run flow
 matrix:
   include:
     - language: android
@@ -28,6 +28,8 @@ matrix:
           - addon-google_apis-google-16
       script:
         - cd android && ./gradlew assembleRelease
+        - echo "HELLO"
+        - echo $TRAVIS_BUILD_DIR
 deploy:
   skip_cleanup: true
   provider: testfairy
