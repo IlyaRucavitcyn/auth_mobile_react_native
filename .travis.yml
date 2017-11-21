@@ -31,7 +31,7 @@ matrix:
         - echo "HELLO"
         - cd $TRAVIS_BUILD_DIR/android/app/build/outputs/apk
         - ls -la
-        
+
 before_deploy:
   - cd $TRAVIS_BUILD_DIR/android/app/build/outputs/apk
   - ls -la
@@ -39,8 +39,7 @@ deploy:
   skip_cleanup: true
   provider: testfairy
   api-key: $API_KEY
-  app-file: $TRAVIS_BUILD_DIR/app-release.apk
+  app-file: $TRAVIS_BUILD_DIR/android/app/build/outputs/apk/app-release.apk
   keystore-file: $TRAVIS_BUILD_DIR/android/app/my-release-key.keystore
   storepass: $KEY_STORE_PASS
   alias: $KEY_STORE_ALIAS
-  alias: android
