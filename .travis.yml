@@ -33,6 +33,7 @@ matrix:
         - ls -la
 
 before_deploy:
+  - echo "BEFORE_DEPLOY"
   - cd $TRAVIS_BUILD_DIR/android/app/build/outputs/apk
   - ls -la
 deploy:
