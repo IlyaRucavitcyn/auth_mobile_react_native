@@ -32,7 +32,7 @@ deploy:
   skip_cleanup: true
   provider: testfairy
   api-key: $API_KEY
-  app-file: $TRAVIS_BUILD_DIR/android/app/settings.gradle
+  app-file: bin/app-release.apk
   keystore-file: $TRAVIS_BUILD_DIR/android/app/my-release-key.keystore
   storepass: $KEY_STORE_PASS
   alias: $KEY_STORE_ALIAS
