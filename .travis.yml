@@ -31,6 +31,10 @@ matrix:
         - echo "HELLO"
         - cd $TRAVIS_BUILD_DIR/android/app/build/outputs/apk
         - ls -la
+        
+before_deploy:
+  - cd $TRAVIS_BUILD_DIR/android/app/build/outputs/apk
+  - ls -la
 deploy:
   skip_cleanup: true
   provider: testfairy
