@@ -41,8 +41,8 @@ deploy:
   provider: testfairy
   api-key: $API_KEY
   app-file: $TRAVIS_BUILD_DIR/android/app/build/outputs/apk/app-release.apk
-  keystore-file: $TRAVIS_BUILD_DIR/android/app/auth.keystore
+  keystore-file: $TRAVIS_BUILD_DIR/android/app/auth_keystore.jks
   storepass: $KEY_STORE_PASS
   keypass: $KEY_STORE_PASS
-  alias: authalias
+  alias: auth_key
   
