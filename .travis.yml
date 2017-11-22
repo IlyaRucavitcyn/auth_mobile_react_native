@@ -39,7 +39,7 @@ before_deploy:
 deploy:
   skip_cleanup: true
   provider: testfairy
-  # api-key: $API_KEY
+  api-key: $API_KEY
   app-file: $TRAVIS_BUILD_DIR/android/app/build/outputs/apk/app-release.apk
   # keystore-file: $TRAVIS_BUILD_DIR/android/app/auth_keystore.jks
   # storepass: $KEY_STORE_PASS
