@@ -1,48 +1,49 @@
 language: node_js
-node_js: "node"
+node_js: node
 install:
-  - npm install
+- npm install
 script:
-  - npm test
-  - npm run flow
+- npm test
+- npm run flow
 matrix:
   include:
-    - language: android
-      os: linux
-      sudo: required
-      jdk: oraclejdk8
-      node_js: false
-      before_install:
-        - nvm install 7
-      android:
-        components:
-          - tools
-          - platform-tools
-          - build-tools-23.0.1
-          - android-23
-          - build-tools-26.0.1
-          - android-26
-          - extra-android-m2repository
-          - extra-google-google_play_services
-          - extra-google-m2repository
-          - addon-google_apis-google-16
-      script:
-        - cd android && ./gradlew assembleRelease
-        - echo "HELLO"
-        - cd $TRAVIS_BUILD_DIR/android/app/build/outputs/apk
-        - ls -la
-
+  - language: android
+    os: linux
+    sudo: required
+    jdk: oraclejdk8
+    node_js: false
+    before_install:
+    - nvm install 7
+    android:
+      components:
+      - tools
+      - platform-tools
+      - build-tools-23.0.1
+      - android-23
+      - build-tools-26.0.1
+      - android-26
+      - extra-android-m2repository
+      - extra-google-google_play_services
+      - extra-google-m2repository
+      - addon-google_apis-google-16
+    script:
+    - cd android && ./gradlew assembleRelease
+    - echo "HELLO"
+    - cd $TRAVIS_BUILD_DIR/android/app/build/outputs/apk
+    - ls -la
 before_deploy:
-  - echo "BEFORE_DEPLOY"
-  - cd $TRAVIS_BUILD_DIR/android/app/build/outputs/apk
-  - ls -la
+- echo "BEFORE_DEPLOY"
+- cd $TRAVIS_BUILD_DIR/android/app/build/outputs/apk
+- ls -la
 deploy:
   skip_cleanup: true
   provider: testfairy
-  api-key: $API_KEY
-  app-file: $TRAVIS_BUILD_DIR/android/app/build/outputs/apk/app-release.apk
-  # keystore-file: $TRAVIS_BUILD_DIR/android/app/auth_keystore.jks
-  # storepass: $KEY_STORE_PASS
-  # keypass: $KEY_STORE_PASS
-  # alias: auth_key
-  
+  api-key: "$API_KEY"
+  app-file: "$TRAVIS_BUILD_DIR/android/app/build/outputs/apk/app-release.apk"
+  keystore-file: "$TRAVIS_BUILD_DIR/android/app/auth_keystore.jks"
+  storepass: "$KEY_STORE_PASS"
+  keypass: "$KEY_STORE_PASS"
+  alias: auth_key
+before_install:
+- openssl aes-256-cbc -K $encrypted_add63a000d28_key -iv $encrypted_add63a000d28_iv
+  -in auth_keystore.jks.enc -out ./android/app/auth_keystore.jks -d
