@@ -10,6 +10,7 @@ matrix:
     - language: android
       os: linux
       sudo: required
+      jdk: oraclejdk8
       node_js: false
       before_install:
         - nvm install 7
@@ -38,10 +39,10 @@ before_deploy:
 deploy:
   skip_cleanup: true
   provider: testfairy
-  api-key: $API_KEY
+  # api-key: $API_KEY
   app-file: $TRAVIS_BUILD_DIR/android/app/build/outputs/apk/app-release.apk
-  keystore-file: $TRAVIS_BUILD_DIR/android/app/auth_keystore.jks
-  storepass: $KEY_STORE_PASS
-  keypass: $KEY_STORE_PASS
-  alias: auth_key
+  # keystore-file: $TRAVIS_BUILD_DIR/android/app/auth_keystore.jks
+  # storepass: $KEY_STORE_PASS
+  # keypass: $KEY_STORE_PASS
+  # alias: auth_key
   
